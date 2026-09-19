@@ -1,13 +1,13 @@
 {
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.9.0/schema.json",
-  "name": "pltooltiptitle000001",
+  "name": "c10df10afpa0000000003",
   "position": {
     "x": 0,
     "y": 0,
-    "width": 1,
-    "height": 18,
-    "z": 1,
-    "tabOrder": 1
+    "width": 100,
+    "height": 60,
+    "z": 0,
+    "tabOrder": 0
   },
   "visual": {
     "visualType": "textbox",
@@ -19,10 +19,10 @@
               {
                 "textRuns": [
                   {
-                    "value": "",
+                    "value": "Profit & loss",
                     "textStyle": {
                       "fontFamily": "Segoe UI",
-                      "fontSize": "6px",
+                      "fontSize": "36px",
                       "color": "#17324D"
                     }
                   }
@@ -40,7 +40,7 @@
             "show": {
               "expr": {
                 "Literal": {
-                  "Value": "false"
+                  "Value": "true"
                 }
               }
             },
@@ -190,5 +190,6 @@
         }
       ]
     }
-  }
+  },
+  "isHidden": true
 }

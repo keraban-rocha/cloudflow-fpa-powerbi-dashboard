@@ -19,7 +19,7 @@
               {
                 "textRuns": [
                   {
-                    "value": "Blue: YoY | Teal: MoM | Green: favorable | Red: unfavorable | Arrows show direction. Lower costs/expenses are favorable. MoM is not applicable to YTD.",
+                    "value": "Green: favorable | Red: unfavorable | Arrows show direction. Lower costs and expenses are favorable.",
                     "textStyle": {
                       "fontFamily": "Segoe UI",
                       "fontSize": "12px",

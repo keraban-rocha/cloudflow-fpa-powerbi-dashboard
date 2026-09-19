@@ -17,7 +17,7 @@
                 "Entity": "P&L Lines"
               }
             },
-            "Property": "Line Label"
+            "Property": "Line"
           }
         },
         "type": "Categorical",
@@ -39,7 +39,7 @@
                 "Entity": "P&L Lines"
               }
             },
-            "Property": "Line Label"
+            "Property": "Line"
           }
         }
       }

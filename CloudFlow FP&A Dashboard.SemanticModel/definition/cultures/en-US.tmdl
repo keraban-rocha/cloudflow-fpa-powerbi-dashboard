@@ -39,7 +39,19 @@ cultureInfo en-US
 			          "ConceptualProperty": "Line"
 			        }
 			      },
-			      "State": "Generated"
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "P&L line": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
 			    },
 			    "silver_fact_gl.pl_actual": {
 			      "Definition": {
@@ -69,19 +81,7 @@ cultureInfo en-US
 			          "ConceptualProperty": "P&L Prior Year"
 			        }
 			      },
-			      "State": "Generated",
-			      "Terms": [
-			        {
-			          "YoY prior": {
-			            "State": "Suggested",
-			            "Source": {
-			              "Type": "External",
-			              "Agent": "PowerBI.VisualColumnRename"
-			            },
-			            "Weight": 0.9
-			          }
-			        }
-			      ]
+			      "State": "Generated"
 			    },
 			    "silver_fact_gl.pl_yoy_change": {
 			      "Definition": {
@@ -90,19 +90,7 @@ cultureInfo en-US
 			          "ConceptualProperty": "P&L YoY Change"
 			        }
 			      },
-			      "State": "Generated",
-			      "Terms": [
-			        {
-			          "YoY change": {
-			            "State": "Suggested",
-			            "Source": {
-			              "Type": "External",
-			              "Agent": "PowerBI.VisualColumnRename"
-			            },
-			            "Weight": 0.9
-			          }
-			        }
-			      ]
+			      "State": "Generated"
 			    },
 			    "silver_fact_gl.pl_yoy_percent": {
 			      "Definition": {
@@ -111,19 +99,7 @@ cultureInfo en-US
 			          "ConceptualProperty": "P&L YoY Percent"
 			        }
 			      },
-			      "State": "Generated",
-			      "Terms": [
-			        {
-			          "YoY %": {
-			            "State": "Suggested",
-			            "Source": {
-			              "Type": "External",
-			              "Agent": "PowerBI.VisualColumnRename"
-			            },
-			            "Weight": 0.9
-			          }
-			        }
-			      ]
+			      "State": "Generated"
 			    },
 			    "silver_fact_gl.pl_prior_month": {
 			      "Definition": {
@@ -132,19 +108,7 @@ cultureInfo en-US
 			          "ConceptualProperty": "P&L Prior Month"
 			        }
 			      },
-			      "State": "Generated",
-			      "Terms": [
-			        {
-			          "MoM prior": {
-			            "State": "Suggested",
-			            "Source": {
-			              "Type": "External",
-			              "Agent": "PowerBI.VisualColumnRename"
-			            },
-			            "Weight": 0.9
-			          }
-			        }
-			      ]
+			      "State": "Generated"
 			    },
 			    "silver_fact_gl.pl_mom_change": {
 			      "Definition": {
@@ -153,19 +117,7 @@ cultureInfo en-US
 			          "ConceptualProperty": "P&L MoM Change"
 			        }
 			      },
-			      "State": "Generated",
-			      "Terms": [
-			        {
-			          "MoM change": {
-			            "State": "Suggested",
-			            "Source": {
-			              "Type": "External",
-			              "Agent": "PowerBI.VisualColumnRename"
-			            },
-			            "Weight": 0.9
-			          }
-			        }
-			      ]
+			      "State": "Generated"
 			    },
 			    "silver_fact_gl.pl_mom_percent": {
 			      "Definition": {
@@ -174,19 +126,7 @@ cultureInfo en-US
 			          "ConceptualProperty": "P&L MoM Percent"
 			        }
 			      },
-			      "State": "Generated",
-			      "Terms": [
-			        {
-			          "MoM %": {
-			            "State": "Suggested",
-			            "Source": {
-			              "Type": "External",
-			              "Agent": "PowerBI.VisualColumnRename"
-			            },
-			            "Weight": 0.9
-			          }
-			        }
-			      ]
+			      "State": "Generated"
 			    },
 			    "reporting_month.month": {
 			      "Definition": {
@@ -408,6 +348,16 @@ cultureInfo en-US
 			      "State": "Generated",
 			      "Terms": [
 			        {
+			          "Comparison": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        },
+			        {
 			          "Compare": {
 			            "State": "Suggested",
 			            "Source": {
@@ -447,19 +397,7 @@ cultureInfo en-US
 			          "ConceptualProperty": "Line Label"
 			        }
 			      },
-			      "State": "Generated",
-			      "Terms": [
-			        {
-			          "P&L line": {
-			            "State": "Suggested",
-			            "Source": {
-			              "Type": "External",
-			              "Agent": "PowerBI.VisualColumnRename"
-			            },
-			            "Weight": 0.9
-			          }
-			        }
-			      ]
+			      "State": "Generated"
 			    },
 			    "pl_lines.pl_line_tooltip": {
 			      "Definition": {
@@ -481,6 +419,87 @@ cultureInfo en-US
 			          }
 			        }
 			      ]
+			    },
+			    "pl_lines.pl_info_icon": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "P&L Lines",
+			          "ConceptualProperty": "P&L Info Icon"
+			        }
+			      },
+			      "State": "Generated"
+			    },
+			    "silver_fact_gl.pl_comparison_value": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "silver fact_gl",
+			          "ConceptualProperty": "P&L Comparison Value"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Comparison": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "silver_fact_gl.pl_comparison_change": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "silver fact_gl",
+			          "ConceptualProperty": "P&L Comparison Change"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Variance": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "silver_fact_gl.pl_comparison_percent": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "silver fact_gl",
+			          "ConceptualProperty": "P&L Comparison Percent"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Variance %": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "silver_fact_gl.pl_budget_value": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "silver fact_gl",
+			          "ConceptualProperty": "P&L Budget Value"
+			        }
+			      },
+			      "State": "Generated"
 			    }
 			  }
 			}

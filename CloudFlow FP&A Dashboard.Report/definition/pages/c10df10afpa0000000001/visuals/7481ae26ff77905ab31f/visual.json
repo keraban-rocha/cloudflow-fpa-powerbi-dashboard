@@ -20,15 +20,16 @@
                 "Column": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "silver dim_account"
+                      "Entity": "Bridge Comparison"
                     }
                   },
-                  "Property": "account_subtype"
+                  "Property": "Comparison"
                 }
               },
-              "queryRef": "silver dim_account.account_subtype",
-              "nativeQueryRef": "account_subtype",
-              "active": true
+              "queryRef": "Bridge Comparison.Comparison",
+              "nativeQueryRef": "Comparison",
+              "active": true,
+              "displayName": "Comparison"
             }
           ]
         }
@@ -61,7 +62,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Account subtype'"
+                  "Value": "'Comparison'"
                 }
               }
             },
@@ -80,6 +81,80 @@
                       "Value": "'#17324D'"
                     }
                   }
+                }
+              }
+            }
+          }
+        }
+      ],
+      "general": [
+        {
+          "properties": {
+            "filter": {
+              "filter": {
+                "Version": 2,
+                "From": [
+                  {
+                    "Name": "b",
+                    "Entity": "Bridge Comparison",
+                    "Type": 0
+                  }
+                ],
+                "Where": [
+                  {
+                    "Condition": {
+                      "In": {
+                        "Expressions": [
+                          {
+                            "Column": {
+                              "Expression": {
+                                "SourceRef": {
+                                  "Source": "b"
+                                }
+                              },
+                              "Property": "Comparison"
+                            }
+                          }
+                        ],
+                        "Values": [
+                          [
+                            {
+                              "Literal": {
+                                "Value": "'vs Budget'"
+                              }
+                            }
+                          ]
+                        ]
+                      }
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        }
+      ],
+      "selection": [
+        {
+          "properties": {
+            "strictSingleSelect": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "singleSelect": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "selectAllCheckboxEnabled": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
                 }
               }
             }
@@ -236,7 +311,7 @@
             "altText": {
               "expr": {
                 "Literal": {
-                  "Value": "'Filter all P&L results by account subtype'"
+                  "Value": "'Select YoY, MoM, Budget or Forecast comparison'"
                 }
               }
             }

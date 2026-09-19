@@ -1,12 +1,12 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.9.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
   "name": "12edbdd62ccbb63ceeb4",
   "position": {
     "x": 32,
     "y": 560,
-    "width": 1376,
-    "height": 384,
     "z": 9,
+    "height": 384,
+    "width": 1376,
     "tabOrder": 9
   },
   "visual": {
@@ -23,18 +23,33 @@
                       "Entity": "P&L Lines"
                     }
                   },
-                  "Property": "Line Label"
+                  "Property": "Line"
                 }
               },
-              "queryRef": "P&L Lines.Line Label",
-              "nativeQueryRef": "Line Label",
-              "displayName": "P&L line",
-              "active": true
+              "queryRef": "P&L Lines.Line",
+              "nativeQueryRef": "Line",
+              "active": true,
+              "displayName": "P&L line"
             }
           ]
         },
         "Values": {
           "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "P&L Lines"
+                    }
+                  },
+                  "Property": "P&L Info Icon"
+                }
+              },
+              "queryRef": "P&L Lines.P&L Info Icon",
+              "nativeQueryRef": "P&L Info Icon",
+              "displayName": " "
+            },
             {
               "field": {
                 "Measure": {
@@ -58,12 +73,12 @@
                       "Entity": "silver fact_gl"
                     }
                   },
-                  "Property": "P&L Prior Year"
+                  "Property": "P&L Comparison Value"
                 }
               },
-              "queryRef": "silver fact_gl.P&L Prior Year",
-              "nativeQueryRef": "P&L Prior Year",
-              "displayName": "YoY prior"
+              "queryRef": "silver fact_gl.P&L Comparison Value",
+              "nativeQueryRef": "P&L Comparison Value",
+              "displayName": "Comparison"
             },
             {
               "field": {
@@ -73,12 +88,12 @@
                       "Entity": "silver fact_gl"
                     }
                   },
-                  "Property": "P&L YoY Change"
+                  "Property": "P&L Comparison Change"
                 }
               },
-              "queryRef": "silver fact_gl.P&L YoY Change",
-              "nativeQueryRef": "P&L YoY Change",
-              "displayName": "YoY change"
+              "queryRef": "silver fact_gl.P&L Comparison Change",
+              "nativeQueryRef": "P&L Comparison Change",
+              "displayName": "Variance"
             },
             {
               "field": {
@@ -88,57 +103,12 @@
                       "Entity": "silver fact_gl"
                     }
                   },
-                  "Property": "P&L YoY Percent"
+                  "Property": "P&L Comparison Percent"
                 }
               },
-              "queryRef": "silver fact_gl.P&L YoY Percent",
-              "nativeQueryRef": "P&L YoY Percent",
-              "displayName": "YoY %"
-            },
-            {
-              "field": {
-                "Measure": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "silver fact_gl"
-                    }
-                  },
-                  "Property": "P&L Prior Month"
-                }
-              },
-              "queryRef": "silver fact_gl.P&L Prior Month",
-              "nativeQueryRef": "P&L Prior Month",
-              "displayName": "MoM prior"
-            },
-            {
-              "field": {
-                "Measure": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "silver fact_gl"
-                    }
-                  },
-                  "Property": "P&L MoM Change"
-                }
-              },
-              "queryRef": "silver fact_gl.P&L MoM Change",
-              "nativeQueryRef": "P&L MoM Change",
-              "displayName": "MoM change"
-            },
-            {
-              "field": {
-                "Measure": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "silver fact_gl"
-                    }
-                  },
-                  "Property": "P&L MoM Percent"
-                }
-              },
-              "queryRef": "silver fact_gl.P&L MoM Percent",
-              "nativeQueryRef": "P&L MoM Percent",
-              "displayName": "MoM %"
+              "queryRef": "silver fact_gl.P&L Comparison Percent",
+              "nativeQueryRef": "P&L Comparison Percent",
+              "displayName": "Variance %"
             }
           ]
         }
@@ -227,7 +197,7 @@
                                       "Entity": "silver fact_gl"
                                     }
                                   },
-                                  "Property": "P&L YoY Favorability"
+                                  "Property": "P&L Comparison Favorability"
                                 }
                               },
                               "Right": {
@@ -254,7 +224,7 @@
                                       "Entity": "silver fact_gl"
                                     }
                                   },
-                                  "Property": "P&L YoY Favorability"
+                                  "Property": "P&L Comparison Favorability"
                                 }
                               },
                               "Right": {
@@ -298,7 +268,7 @@
                                       "Entity": "silver fact_gl"
                                     }
                                   },
-                                  "Property": "P&L YoY Favorability"
+                                  "Property": "P&L Comparison Favorability"
                                 }
                               },
                               "Right": {
@@ -325,7 +295,7 @@
                                       "Entity": "silver fact_gl"
                                     }
                                   },
-                                  "Property": "P&L YoY Favorability"
+                                  "Property": "P&L Comparison Favorability"
                                 }
                               },
                               "Right": {
@@ -385,7 +355,7 @@
                                         "Entity": "silver fact_gl"
                                       }
                                     },
-                                    "Property": "P&L YoY Favorability"
+                                    "Property": "P&L Comparison Favorability"
                                   }
                                 },
                                 "Right": {
@@ -405,7 +375,7 @@
                                         "Entity": "silver fact_gl"
                                       }
                                     },
-                                    "Property": "P&L YoY Change"
+                                    "Property": "P&L Comparison Change"
                                   }
                                 },
                                 "Right": {
@@ -436,7 +406,7 @@
                                         "Entity": "silver fact_gl"
                                       }
                                     },
-                                    "Property": "P&L YoY Favorability"
+                                    "Property": "P&L Comparison Favorability"
                                   }
                                 },
                                 "Right": {
@@ -456,7 +426,7 @@
                                         "Entity": "silver fact_gl"
                                       }
                                     },
-                                    "Property": "P&L YoY Change"
+                                    "Property": "P&L Comparison Change"
                                   }
                                 },
                                 "Right": {
@@ -487,7 +457,7 @@
                                         "Entity": "silver fact_gl"
                                       }
                                     },
-                                    "Property": "P&L YoY Favorability"
+                                    "Property": "P&L Comparison Favorability"
                                   }
                                 },
                                 "Right": {
@@ -507,7 +477,7 @@
                                         "Entity": "silver fact_gl"
                                       }
                                     },
-                                    "Property": "P&L YoY Change"
+                                    "Property": "P&L Comparison Change"
                                   }
                                 },
                                 "Right": {
@@ -538,7 +508,7 @@
                                         "Entity": "silver fact_gl"
                                       }
                                     },
-                                    "Property": "P&L YoY Favorability"
+                                    "Property": "P&L Comparison Favorability"
                                   }
                                 },
                                 "Right": {
@@ -558,7 +528,7 @@
                                         "Entity": "silver fact_gl"
                                       }
                                     },
-                                    "Property": "P&L YoY Change"
+                                    "Property": "P&L Comparison Change"
                                   }
                                 },
                                 "Right": {
@@ -590,7 +560,7 @@
                 }
               }
             ],
-            "metadata": "silver fact_gl.P&L YoY Change"
+            "metadata": "silver fact_gl.P&L Comparison Change"
           }
         },
         {
@@ -612,7 +582,7 @@
                                       "Entity": "silver fact_gl"
                                     }
                                   },
-                                  "Property": "P&L YoY Favorability"
+                                  "Property": "P&L Comparison Favorability"
                                 }
                               },
                               "Right": {
@@ -639,7 +609,7 @@
                                       "Entity": "silver fact_gl"
                                     }
                                   },
-                                  "Property": "P&L YoY Favorability"
+                                  "Property": "P&L Comparison Favorability"
                                 }
                               },
                               "Right": {
@@ -683,7 +653,7 @@
                                       "Entity": "silver fact_gl"
                                     }
                                   },
-                                  "Property": "P&L YoY Favorability"
+                                  "Property": "P&L Comparison Favorability"
                                 }
                               },
                               "Right": {
@@ -710,7 +680,7 @@
                                       "Entity": "silver fact_gl"
                                     }
                                   },
-                                  "Property": "P&L YoY Favorability"
+                                  "Property": "P&L Comparison Favorability"
                                 }
                               },
                               "Right": {
@@ -746,548 +716,7 @@
                 }
               }
             ],
-            "metadata": "silver fact_gl.P&L YoY Percent"
-          }
-        },
-        {
-          "properties": {
-            "fontColor": {
-              "solid": {
-                "color": {
-                  "expr": {
-                    "Conditional": {
-                      "Cases": [
-                        {
-                          "Condition": {
-                            "Comparison": {
-                              "ComparisonKind": 1,
-                              "Left": {
-                                "Measure": {
-                                  "Expression": {
-                                    "SourceRef": {
-                                      "Entity": "silver fact_gl"
-                                    }
-                                  },
-                                  "Property": "P&L MoM Favorability"
-                                }
-                              },
-                              "Right": {
-                                "Literal": {
-                                  "Value": "0D"
-                                }
-                              }
-                            }
-                          },
-                          "Value": {
-                            "Literal": {
-                              "Value": "'#167347'"
-                            }
-                          }
-                        },
-                        {
-                          "Condition": {
-                            "Comparison": {
-                              "ComparisonKind": 3,
-                              "Left": {
-                                "Measure": {
-                                  "Expression": {
-                                    "SourceRef": {
-                                      "Entity": "silver fact_gl"
-                                    }
-                                  },
-                                  "Property": "P&L MoM Favorability"
-                                }
-                              },
-                              "Right": {
-                                "Literal": {
-                                  "Value": "0D"
-                                }
-                              }
-                            }
-                          },
-                          "Value": {
-                            "Literal": {
-                              "Value": "'#B42318'"
-                            }
-                          }
-                        }
-                      ],
-                      "DefaultValue": {
-                        "Literal": {
-                          "Value": "'#5B6B7C'"
-                        }
-                      }
-                    }
-                  }
-                }
-              }
-            },
-            "backColor": {
-              "solid": {
-                "color": {
-                  "expr": {
-                    "Conditional": {
-                      "Cases": [
-                        {
-                          "Condition": {
-                            "Comparison": {
-                              "ComparisonKind": 1,
-                              "Left": {
-                                "Measure": {
-                                  "Expression": {
-                                    "SourceRef": {
-                                      "Entity": "silver fact_gl"
-                                    }
-                                  },
-                                  "Property": "P&L MoM Favorability"
-                                }
-                              },
-                              "Right": {
-                                "Literal": {
-                                  "Value": "0D"
-                                }
-                              }
-                            }
-                          },
-                          "Value": {
-                            "Literal": {
-                              "Value": "'#E8F5EC'"
-                            }
-                          }
-                        },
-                        {
-                          "Condition": {
-                            "Comparison": {
-                              "ComparisonKind": 3,
-                              "Left": {
-                                "Measure": {
-                                  "Expression": {
-                                    "SourceRef": {
-                                      "Entity": "silver fact_gl"
-                                    }
-                                  },
-                                  "Property": "P&L MoM Favorability"
-                                }
-                              },
-                              "Right": {
-                                "Literal": {
-                                  "Value": "0D"
-                                }
-                              }
-                            }
-                          },
-                          "Value": {
-                            "Literal": {
-                              "Value": "'#FDEDEC'"
-                            }
-                          }
-                        }
-                      ],
-                      "DefaultValue": {
-                        "Literal": {
-                          "Value": "'#ECF7F6'"
-                        }
-                      }
-                    }
-                  }
-                }
-              }
-            },
-            "icon": {
-              "kind": "Icon",
-              "layout": {
-                "expr": {
-                  "Literal": {
-                    "Value": "'Before'"
-                  }
-                }
-              },
-              "verticalAlignment": {
-                "expr": {
-                  "Literal": {
-                    "Value": "'Middle'"
-                  }
-                }
-              },
-              "value": {
-                "expr": {
-                  "Conditional": {
-                    "Cases": [
-                      {
-                        "Condition": {
-                          "And": {
-                            "Left": {
-                              "Comparison": {
-                                "ComparisonKind": 1,
-                                "Left": {
-                                  "Measure": {
-                                    "Expression": {
-                                      "SourceRef": {
-                                        "Entity": "silver fact_gl"
-                                      }
-                                    },
-                                    "Property": "P&L MoM Favorability"
-                                  }
-                                },
-                                "Right": {
-                                  "Literal": {
-                                    "Value": "0D"
-                                  }
-                                }
-                              }
-                            },
-                            "Right": {
-                              "Comparison": {
-                                "ComparisonKind": 1,
-                                "Left": {
-                                  "Measure": {
-                                    "Expression": {
-                                      "SourceRef": {
-                                        "Entity": "silver fact_gl"
-                                      }
-                                    },
-                                    "Property": "P&L MoM Change"
-                                  }
-                                },
-                                "Right": {
-                                  "Literal": {
-                                    "Value": "0D"
-                                  }
-                                }
-                              }
-                            }
-                          }
-                        },
-                        "Value": {
-                          "Literal": {
-                            "Value": "'ColoredArrowUp'"
-                          }
-                        }
-                      },
-                      {
-                        "Condition": {
-                          "And": {
-                            "Left": {
-                              "Comparison": {
-                                "ComparisonKind": 1,
-                                "Left": {
-                                  "Measure": {
-                                    "Expression": {
-                                      "SourceRef": {
-                                        "Entity": "silver fact_gl"
-                                      }
-                                    },
-                                    "Property": "P&L MoM Favorability"
-                                  }
-                                },
-                                "Right": {
-                                  "Literal": {
-                                    "Value": "0D"
-                                  }
-                                }
-                              }
-                            },
-                            "Right": {
-                              "Comparison": {
-                                "ComparisonKind": 3,
-                                "Left": {
-                                  "Measure": {
-                                    "Expression": {
-                                      "SourceRef": {
-                                        "Entity": "silver fact_gl"
-                                      }
-                                    },
-                                    "Property": "P&L MoM Change"
-                                  }
-                                },
-                                "Right": {
-                                  "Literal": {
-                                    "Value": "0D"
-                                  }
-                                }
-                              }
-                            }
-                          }
-                        },
-                        "Value": {
-                          "Literal": {
-                            "Value": "'ColoredArrowDownGreen'"
-                          }
-                        }
-                      },
-                      {
-                        "Condition": {
-                          "And": {
-                            "Left": {
-                              "Comparison": {
-                                "ComparisonKind": 3,
-                                "Left": {
-                                  "Measure": {
-                                    "Expression": {
-                                      "SourceRef": {
-                                        "Entity": "silver fact_gl"
-                                      }
-                                    },
-                                    "Property": "P&L MoM Favorability"
-                                  }
-                                },
-                                "Right": {
-                                  "Literal": {
-                                    "Value": "0D"
-                                  }
-                                }
-                              }
-                            },
-                            "Right": {
-                              "Comparison": {
-                                "ComparisonKind": 1,
-                                "Left": {
-                                  "Measure": {
-                                    "Expression": {
-                                      "SourceRef": {
-                                        "Entity": "silver fact_gl"
-                                      }
-                                    },
-                                    "Property": "P&L MoM Change"
-                                  }
-                                },
-                                "Right": {
-                                  "Literal": {
-                                    "Value": "0D"
-                                  }
-                                }
-                              }
-                            }
-                          }
-                        },
-                        "Value": {
-                          "Literal": {
-                            "Value": "'ColoredArrowUpRed'"
-                          }
-                        }
-                      },
-                      {
-                        "Condition": {
-                          "And": {
-                            "Left": {
-                              "Comparison": {
-                                "ComparisonKind": 3,
-                                "Left": {
-                                  "Measure": {
-                                    "Expression": {
-                                      "SourceRef": {
-                                        "Entity": "silver fact_gl"
-                                      }
-                                    },
-                                    "Property": "P&L MoM Favorability"
-                                  }
-                                },
-                                "Right": {
-                                  "Literal": {
-                                    "Value": "0D"
-                                  }
-                                }
-                              }
-                            },
-                            "Right": {
-                              "Comparison": {
-                                "ComparisonKind": 3,
-                                "Left": {
-                                  "Measure": {
-                                    "Expression": {
-                                      "SourceRef": {
-                                        "Entity": "silver fact_gl"
-                                      }
-                                    },
-                                    "Property": "P&L MoM Change"
-                                  }
-                                },
-                                "Right": {
-                                  "Literal": {
-                                    "Value": "0D"
-                                  }
-                                }
-                              }
-                            }
-                          }
-                        },
-                        "Value": {
-                          "Literal": {
-                            "Value": "'ColoredArrowDown'"
-                          }
-                        }
-                      }
-                    ]
-                  }
-                }
-              }
-            }
-          },
-          "selector": {
-            "data": [
-              {
-                "dataViewWildcard": {
-                  "matchingOption": 1
-                }
-              }
-            ],
-            "metadata": "silver fact_gl.P&L MoM Change"
-          }
-        },
-        {
-          "properties": {
-            "fontColor": {
-              "solid": {
-                "color": {
-                  "expr": {
-                    "Conditional": {
-                      "Cases": [
-                        {
-                          "Condition": {
-                            "Comparison": {
-                              "ComparisonKind": 1,
-                              "Left": {
-                                "Measure": {
-                                  "Expression": {
-                                    "SourceRef": {
-                                      "Entity": "silver fact_gl"
-                                    }
-                                  },
-                                  "Property": "P&L MoM Favorability"
-                                }
-                              },
-                              "Right": {
-                                "Literal": {
-                                  "Value": "0D"
-                                }
-                              }
-                            }
-                          },
-                          "Value": {
-                            "Literal": {
-                              "Value": "'#167347'"
-                            }
-                          }
-                        },
-                        {
-                          "Condition": {
-                            "Comparison": {
-                              "ComparisonKind": 3,
-                              "Left": {
-                                "Measure": {
-                                  "Expression": {
-                                    "SourceRef": {
-                                      "Entity": "silver fact_gl"
-                                    }
-                                  },
-                                  "Property": "P&L MoM Favorability"
-                                }
-                              },
-                              "Right": {
-                                "Literal": {
-                                  "Value": "0D"
-                                }
-                              }
-                            }
-                          },
-                          "Value": {
-                            "Literal": {
-                              "Value": "'#B42318'"
-                            }
-                          }
-                        }
-                      ],
-                      "DefaultValue": {
-                        "Literal": {
-                          "Value": "'#5B6B7C'"
-                        }
-                      }
-                    }
-                  }
-                }
-              }
-            },
-            "backColor": {
-              "solid": {
-                "color": {
-                  "expr": {
-                    "Conditional": {
-                      "Cases": [
-                        {
-                          "Condition": {
-                            "Comparison": {
-                              "ComparisonKind": 1,
-                              "Left": {
-                                "Measure": {
-                                  "Expression": {
-                                    "SourceRef": {
-                                      "Entity": "silver fact_gl"
-                                    }
-                                  },
-                                  "Property": "P&L MoM Favorability"
-                                }
-                              },
-                              "Right": {
-                                "Literal": {
-                                  "Value": "0D"
-                                }
-                              }
-                            }
-                          },
-                          "Value": {
-                            "Literal": {
-                              "Value": "'#E8F5EC'"
-                            }
-                          }
-                        },
-                        {
-                          "Condition": {
-                            "Comparison": {
-                              "ComparisonKind": 3,
-                              "Left": {
-                                "Measure": {
-                                  "Expression": {
-                                    "SourceRef": {
-                                      "Entity": "silver fact_gl"
-                                    }
-                                  },
-                                  "Property": "P&L MoM Favorability"
-                                }
-                              },
-                              "Right": {
-                                "Literal": {
-                                  "Value": "0D"
-                                }
-                              }
-                            }
-                          },
-                          "Value": {
-                            "Literal": {
-                              "Value": "'#FDEDEC'"
-                            }
-                          }
-                        }
-                      ],
-                      "DefaultValue": {
-                        "Literal": {
-                          "Value": "'#ECF7F6'"
-                        }
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "selector": {
-            "data": [
-              {
-                "dataViewWildcard": {
-                  "matchingOption": 1
-                }
-              }
-            ],
-            "metadata": "silver fact_gl.P&L MoM Percent"
+            "metadata": "silver fact_gl.P&L Comparison Percent"
           }
         }
       ],
@@ -1405,6 +834,52 @@
       "columnFormatting": [
         {
           "properties": {
+            "fontColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#087F8C'"
+                    }
+                  }
+                }
+              }
+            },
+            "styleHeader": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "styleValues": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "styleSubtotals": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            },
+            "styleTotal": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "P&L Lines.P&L Info Icon"
+          }
+        },
+        {
+          "properties": {
             "backColor": {
               "solid": {
                 "color": {
@@ -1514,7 +989,7 @@
             }
           },
           "selector": {
-            "metadata": "silver fact_gl.P&L Prior Year"
+            "metadata": "silver fact_gl.P&L Comparison Value"
           }
         },
         {
@@ -1571,7 +1046,7 @@
             }
           },
           "selector": {
-            "metadata": "silver fact_gl.P&L YoY Change"
+            "metadata": "silver fact_gl.P&L Comparison Change"
           }
         },
         {
@@ -1628,178 +1103,7 @@
             }
           },
           "selector": {
-            "metadata": "silver fact_gl.P&L YoY Percent"
-          }
-        },
-        {
-          "properties": {
-            "backColor": {
-              "solid": {
-                "color": {
-                  "expr": {
-                    "Literal": {
-                      "Value": "'#ECF7F6'"
-                    }
-                  }
-                }
-              }
-            },
-            "fontColor": {
-              "solid": {
-                "color": {
-                  "expr": {
-                    "Literal": {
-                      "Value": "'#14675F'"
-                    }
-                  }
-                }
-              }
-            },
-            "styleHeader": {
-              "expr": {
-                "Literal": {
-                  "Value": "true"
-                }
-              }
-            },
-            "styleValues": {
-              "expr": {
-                "Literal": {
-                  "Value": "true"
-                }
-              }
-            },
-            "styleSubtotals": {
-              "expr": {
-                "Literal": {
-                  "Value": "false"
-                }
-              }
-            },
-            "styleTotal": {
-              "expr": {
-                "Literal": {
-                  "Value": "false"
-                }
-              }
-            }
-          },
-          "selector": {
-            "metadata": "silver fact_gl.P&L Prior Month"
-          }
-        },
-        {
-          "properties": {
-            "backColor": {
-              "solid": {
-                "color": {
-                  "expr": {
-                    "Literal": {
-                      "Value": "'#ECF7F6'"
-                    }
-                  }
-                }
-              }
-            },
-            "fontColor": {
-              "solid": {
-                "color": {
-                  "expr": {
-                    "Literal": {
-                      "Value": "'#14675F'"
-                    }
-                  }
-                }
-              }
-            },
-            "styleHeader": {
-              "expr": {
-                "Literal": {
-                  "Value": "true"
-                }
-              }
-            },
-            "styleValues": {
-              "expr": {
-                "Literal": {
-                  "Value": "true"
-                }
-              }
-            },
-            "styleSubtotals": {
-              "expr": {
-                "Literal": {
-                  "Value": "false"
-                }
-              }
-            },
-            "styleTotal": {
-              "expr": {
-                "Literal": {
-                  "Value": "false"
-                }
-              }
-            }
-          },
-          "selector": {
-            "metadata": "silver fact_gl.P&L MoM Change"
-          }
-        },
-        {
-          "properties": {
-            "backColor": {
-              "solid": {
-                "color": {
-                  "expr": {
-                    "Literal": {
-                      "Value": "'#ECF7F6'"
-                    }
-                  }
-                }
-              }
-            },
-            "fontColor": {
-              "solid": {
-                "color": {
-                  "expr": {
-                    "Literal": {
-                      "Value": "'#14675F'"
-                    }
-                  }
-                }
-              }
-            },
-            "styleHeader": {
-              "expr": {
-                "Literal": {
-                  "Value": "true"
-                }
-              }
-            },
-            "styleValues": {
-              "expr": {
-                "Literal": {
-                  "Value": "true"
-                }
-              }
-            },
-            "styleSubtotals": {
-              "expr": {
-                "Literal": {
-                  "Value": "false"
-                }
-              }
-            },
-            "styleTotal": {
-              "expr": {
-                "Literal": {
-                  "Value": "false"
-                }
-              }
-            }
-          },
-          "selector": {
-            "metadata": "silver fact_gl.P&L MoM Percent"
+            "metadata": "silver fact_gl.P&L Comparison Percent"
           }
         }
       ],
@@ -1986,7 +1290,7 @@
             "altText": {
               "expr": {
                 "Literal": {
-                  "Value": "'Income statement with hover definitions and formulas for each P&L line'"
+                  "Value": "'P&L actuals compared with the selected YoY, MoM, Budget or Forecast benchmark'"
                 }
               }
             }
@@ -1999,14 +1303,14 @@
             "show": {
               "expr": {
                 "Literal": {
-                  "Value": "true"
+                  "Value": "false"
                 }
               }
             },
             "type": {
               "expr": {
                 "Literal": {
-                  "Value": "'Canvas'"
+                  "Value": "'Default'"
                 }
               }
             },

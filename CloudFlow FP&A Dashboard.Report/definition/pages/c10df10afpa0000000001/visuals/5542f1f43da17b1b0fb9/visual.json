@@ -19,7 +19,7 @@
               {
                 "textRuns": [
                   {
-                    "value": "Reporting Month, Reporting View and Account subtype filter all KPIs and P&L lines.",
+                    "value": "Reporting Month and View filter the KPIs. Comparison controls the benchmark and variance columns in the P&L table.",
                     "textStyle": {
                       "fontFamily": "Segoe UI",
                       "fontSize": "12px",

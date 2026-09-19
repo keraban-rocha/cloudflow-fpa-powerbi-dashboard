@@ -19,7 +19,7 @@
               {
                 "textRuns": [
                   {
-                    "value": "EBITDA = Net Profit + Depreciation - Interest Income. Operating taxes/licenses remain expenses. No separate amortization, interest expense or income tax is booked.",
+                    "value": "",
                     "textStyle": {
                       "fontFamily": "Segoe UI",
                       "fontSize": "12px",
@@ -40,7 +40,7 @@
             "show": {
               "expr": {
                 "Literal": {
-                  "Value": "true"
+                  "Value": "false"
                 }
               }
             },

@@ -1,7 +1,11 @@
 table 'P&L Lines'
 	lineageTag: 8440089a-aa0c-4ea8-8b3f-d9f976a04b46
 
-	measure 'P&L Line Tooltip' = SELECTEDVALUE('P&L Lines'[Explanation], "Hover over a P&L line to see its definition.")
+	measure 'P&L Line Tooltip' = SELECTEDVALUE('P&L Lines'[Explanation], "Click an ⓘ icon in the table to see the line definition and formula.")
+		formatString: @
+		lineageTag: 88c7175c-2088-47e4-a39d-65a151f98d3a
+
+	measure 'P&L Info Icon' = "ⓘ"
 		formatString: @
 		lineageTag: 421f098f-3296-4cc9-8264-46d1e0d44b87
 

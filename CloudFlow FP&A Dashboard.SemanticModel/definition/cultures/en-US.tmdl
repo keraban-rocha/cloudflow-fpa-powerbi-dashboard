@@ -1,0 +1,458 @@
+cultureInfo en-US
+
+	linguisticMetadata =
+			{
+			  "Version": "2.0.0",
+			  "Language": "en-US",
+			  "Entities": {
+			    "silver_fact_gl.year_month": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "silver fact_gl",
+			          "ConceptualProperty": "year_month"
+			        }
+			      },
+			      "State": "Generated"
+			    },
+			    "from_month.month": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "From Month",
+			          "ConceptualProperty": "Month"
+			        }
+			      },
+			      "State": "Generated"
+			    },
+			    "to_month.month": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "To Month",
+			          "ConceptualProperty": "Month"
+			        }
+			      },
+			      "State": "Generated"
+			    },
+			    "pl_lines.line": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "P&L Lines",
+			          "ConceptualProperty": "Line"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "P&L line": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "silver_fact_gl.pl_actual": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "silver fact_gl",
+			          "ConceptualProperty": "P&L Actual"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Actual": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "silver_fact_gl.pl_prior_year": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "silver fact_gl",
+			          "ConceptualProperty": "P&L Prior Year"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "YoY prior": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "silver_fact_gl.pl_yoy_change": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "silver fact_gl",
+			          "ConceptualProperty": "P&L YoY Change"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "YoY change": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "silver_fact_gl.pl_yoy_percent": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "silver fact_gl",
+			          "ConceptualProperty": "P&L YoY Percent"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "YoY %": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "silver_fact_gl.pl_prior_month": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "silver fact_gl",
+			          "ConceptualProperty": "P&L Prior Month"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "MoM prior": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "silver_fact_gl.pl_mom_change": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "silver fact_gl",
+			          "ConceptualProperty": "P&L MoM Change"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "MoM change": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "silver_fact_gl.pl_mom_percent": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "silver fact_gl",
+			          "ConceptualProperty": "P&L MoM Percent"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "MoM %": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "reporting_month.month": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Reporting Month",
+			          "ConceptualProperty": "Month"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Reporting Month": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "reporting_view.view": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Reporting View",
+			          "ConceptualProperty": "View"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Reporting View": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "silver_fact_gl.bridge_prior": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "silver fact_gl",
+			          "ConceptualProperty": "Bridge Prior"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Comparison": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "silver_fact_gl.bridge_actual": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "silver fact_gl",
+			          "ConceptualProperty": "Bridge Actual"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Actual": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "silver_fact_gl.bridge_change": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "silver fact_gl",
+			          "ConceptualProperty": "Bridge Change"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Variance": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "silver_fact_gl.bridge_percent": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "silver fact_gl",
+			          "ConceptualProperty": "Bridge Percent"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Variance %": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "silver_fact_gl.bridge_value": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "silver fact_gl",
+			          "ConceptualProperty": "Bridge Value"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Amount": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "silver_fact_gl.bridge_context": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "silver fact_gl",
+			          "ConceptualProperty": "Bridge Context"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Comparison context": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "silver_dim_account.account_name": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "silver dim_account",
+			          "ConceptualProperty": "account_name"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Account": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "bridge_metric.metric": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Bridge Metric",
+			          "ConceptualProperty": "Metric"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Analyze": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "bridge_comparison.comparison": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Bridge Comparison",
+			          "ConceptualProperty": "Comparison"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Compare": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "bridge_month.month": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Bridge Month",
+			          "ConceptualProperty": "Month"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Month": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    }
+			  }
+			}
+		contentType: json
+

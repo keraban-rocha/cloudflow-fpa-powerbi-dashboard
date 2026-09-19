@@ -1,0 +1,24 @@
+relationship AutoDetected_c1a97544-ea41-43a1-abd8-3a46b66ca4a1
+	fromColumn: 'gold pnl_monthly_actual'.account_id
+	toColumn: 'silver dim_account'.account_id
+
+relationship AutoDetected_acb5d885-32c1-4928-afe5-3d21cc2b2edc
+	fromColumn: 'silver fact_gl'.account_id
+	toColumn: 'silver dim_account'.account_id
+
+relationship AutoDetected_aa5f0f68-013c-4ec7-8e13-d06fa2ff9610
+	fromColumn: 'gold pnl_monthly_actual'.year_month
+	toColumn: 'gold fpa_month'.year_month
+
+relationship AutoDetected_4bd11dac-02fd-4d76-ae4d-24072da0a877
+	fromColumn: 'silver fact_gl'.year_month
+	toColumn: 'gold fpa_month'.year_month
+
+relationship AutoDetected_88c1a805-2b94-4ae9-b7e3-8d1c881a8430
+	fromColumn: 'gold fpa_monthly'.account_id
+	toColumn: 'silver dim_account'.account_id
+
+relationship AutoDetected_3a5f6cf9-abdb-471f-952b-8547a58f42cc
+	fromColumn: 'gold fpa_monthly'.version_key
+	toColumn: 'gold fpa_version'.version_key
+

@@ -1,0 +1,14 @@
+table 'P&L Comparison Offset'
+	isHidden
+	lineageTag: 2194ccc9-0038-4a8f-9f30-1e552f3d2c45
+
+	column Months
+		dataType: int64
+		lineageTag: 4a243648-0920-4fe8-87fc-e9fe6658a229
+		summarizeBy: none
+		sourceColumn: [Months]
+
+	partition 'P&L Comparison Offset' = calculated
+		mode: import
+		source = DATATABLE("Months", INTEGER, {{0}, {-1}, {-12}})
+

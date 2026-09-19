@@ -1,0 +1,92 @@
+table 'gold pnl_monthly_actual'
+	lineageTag: d062479d-22c1-4fc6-8c50-babb1f3393f4
+
+	column year
+		dataType: int64
+		formatString: 0
+		lineageTag: 527e2acc-2063-4736-b4aa-d59fdc3d7ffb
+		summarizeBy: sum
+		sourceColumn: year
+
+		annotation SummarizationSetBy = Automatic
+
+	column month
+		dataType: int64
+		formatString: 0
+		lineageTag: 27dc2eee-ec9f-445a-9210-da73834ab583
+		summarizeBy: sum
+		sourceColumn: month
+
+		annotation SummarizationSetBy = Automatic
+
+	column year_month
+		dataType: string
+		lineageTag: 70319cc4-0d18-4c69-aa68-2d131f894a19
+		summarizeBy: none
+		sourceColumn: year_month
+
+		annotation SummarizationSetBy = Automatic
+
+	column account_id
+		dataType: string
+		lineageTag: 25627cf7-6c76-43e7-8703-ae4771fedc13
+		summarizeBy: none
+		sourceColumn: account_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column account_name
+		dataType: string
+		lineageTag: 48ab1b2a-8274-4006-8a35-a7cbbeeea4f7
+		summarizeBy: none
+		sourceColumn: account_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column account_type
+		dataType: string
+		lineageTag: 75acde65-3576-4425-b354-6f35d5ed5896
+		summarizeBy: none
+		sourceColumn: account_type
+
+		annotation SummarizationSetBy = Automatic
+
+	column account_subtype
+		dataType: string
+		lineageTag: 6d7b7861-7ec6-424d-addf-e0824997bf3d
+		summarizeBy: none
+		sourceColumn: account_subtype
+
+		annotation SummarizationSetBy = Automatic
+
+	column classification
+		dataType: string
+		lineageTag: 86f95713-19cc-4035-a33e-2cf034574abc
+		summarizeBy: none
+		sourceColumn: classification
+
+		annotation SummarizationSetBy = Automatic
+
+	column actual_amount
+		dataType: double
+		lineageTag: 8342f0d3-7c29-4be0-8747-249aa94d988e
+		summarizeBy: sum
+		sourceColumn: actual_amount
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition 'gold pnl_monthly_actual' = m
+		mode: import
+		source =
+				let
+				    Source = Sql.Database("cloudflow-fpa-sql-kr.database.windows.net", "cloudflow_fpa"),
+				    gold_pnl_monthly_actual = Source{[Schema="gold",Item="pnl_monthly_actual"]}[Data]
+				in
+				    gold_pnl_monthly_actual
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

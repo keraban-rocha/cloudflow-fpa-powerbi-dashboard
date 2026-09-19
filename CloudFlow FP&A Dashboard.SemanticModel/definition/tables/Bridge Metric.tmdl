@@ -1,0 +1,13 @@
+table 'Bridge Metric'
+	lineageTag: a11d32a6-9678-4e0b-91fc-14fd8b8914d9
+
+	column Metric
+		dataType: string
+		lineageTag: d065a606-13b6-4b36-8939-29bc147da03d
+		summarizeBy: none
+		sourceColumn: [Metric]
+
+	partition 'Bridge Metric' = calculated
+		mode: import
+		source = DATATABLE("Metric", STRING, {{"Revenue"}, {"COGS"}})
+

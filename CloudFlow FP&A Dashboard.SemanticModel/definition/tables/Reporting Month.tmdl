@@ -1,0 +1,22 @@
+table 'Reporting Month'
+	lineageTag: fb312873-dc35-4c31-9b31-e50490bcb7f3
+
+	column Month
+		dataType: string
+		lineageTag: 23793017-3c30-4e64-8c0a-0be3abb1d914
+		summarizeBy: none
+		sourceColumn: [Month]
+		sortByColumn: 'Month Start'
+
+	column 'Month Start'
+		dataType: dateTime
+		isHidden
+		formatString: MMM-yy
+		lineageTag: 28ebd76a-6fa8-4898-b6b6-912d46b6e13b
+		summarizeBy: none
+		sourceColumn: [Month Start]
+
+	partition 'Reporting Month' = calculated
+		mode: import
+		source = VAR _first = MINX('silver fact_gl', 'silver fact_gl'[txn_date]) VAR _last = MAXX('silver fact_gl', 'silver fact_gl'[txn_date]) RETURN SELECTCOLUMNS(FILTER(CALENDAR(DATE(YEAR(_first), MONTH(_first), 1), EOMONTH(_last, 0)), DAY([Date]) = 1), "Month", FORMAT([Date], "MMM-yy", "en-US"), "Month Start", [Date])
+

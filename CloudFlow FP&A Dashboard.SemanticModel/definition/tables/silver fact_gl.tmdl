@@ -1,0 +1,342 @@
+table 'silver fact_gl'
+	lineageTag: b540adf0-b989-431f-97f0-4c5d6071e1af
+
+	/// Revenue credits less debits, filtered by selected dates and account subtype.
+	measure Revenue = IF([P&L Range Valid] = 1, -CALCULATE([P&L Range Amount], KEEPFILTERS('silver dim_account'[account_type] = "Income")), BLANK())
+		formatString: #,##0.00;(#,##0.00);0.00
+		displayFolder: P&L
+		lineageTag: 72417e5f-396a-4f06-b5e3-fc4d89466e32
+
+	/// Direct costs, displayed as positive expenses.
+	measure 'Cost of Goods Sold' = IF([P&L Range Valid] = 1, CALCULATE([P&L Range Amount], KEEPFILTERS('silver dim_account'[account_type] = "Cost of Goods Sold")), BLANK())
+		formatString: #,##0.00;(#,##0.00);0.00
+		displayFolder: P&L
+		lineageTag: a619f9f1-db4d-451e-8333-282fc755c528
+
+	/// Revenue less cost of goods sold.
+	measure 'Gross Profit' = IF([P&L Range Valid] = 1, [Revenue] - [Cost of Goods Sold], BLANK())
+		formatString: #,##0.00;(#,##0.00);0.00
+		displayFolder: P&L
+		lineageTag: a03bfb01-7fb6-4917-a1e4-e7ecd3ec4ad0
+
+	/// Gross profit divided by revenue; blank when revenue is zero.
+	measure 'Gross Margin' = IF([P&L Range Valid] = 1, DIVIDE([Gross Profit], [Revenue]), BLANK())
+		formatString: 0.0%;(0.0%);0.0%
+		displayFolder: P&L
+		lineageTag: 2cb39456-817e-4f63-b2e5-96d9d267d36c
+
+	/// Operating expenses classified as Expense in the chart of accounts.
+	measure 'Operating Expenses' = IF([P&L Range Valid] = 1, CALCULATE([P&L Range Amount], KEEPFILTERS('silver dim_account'[account_type] = "Expense")), BLANK())
+		formatString: #,##0.00;(#,##0.00);0.00
+		displayFolder: P&L
+		lineageTag: d9cfab97-ebfb-4f6b-b0e7-d4f21b33baae
+
+	/// Gross profit less operating expenses.
+	measure 'Operating Profit' = IF([P&L Range Valid] = 1, [Gross Profit] - [Operating Expenses], BLANK())
+		formatString: #,##0.00;(#,##0.00);0.00
+		displayFolder: P&L
+		lineageTag: 3c5d82cd-eaca-4c34-ac2c-1cf0c0f0079a
+
+	/// Non-operating income, credits less debits.
+	measure 'Other Income' = IF([P&L Range Valid] = 1, COALESCE(-CALCULATE([P&L Range Amount], KEEPFILTERS('silver dim_account'[account_type] = "Other Income")), 0), BLANK())
+		formatString: #,##0.00;(#,##0.00);0.00
+		displayFolder: P&L
+		lineageTag: f289e4a4-20c5-4ebf-ae73-1c3033012725
+
+	/// Non-operating expenses, debits less credits.
+	measure 'Other Expenses' = IF([P&L Range Valid] = 1, CALCULATE([P&L Range Amount], KEEPFILTERS('silver dim_account'[account_type] = "Other Expense")), BLANK())
+		formatString: #,##0.00;(#,##0.00);0.00
+		displayFolder: P&L
+		lineageTag: 0a90efd1-47ec-4c69-9247-49e9f2db4086
+
+	/// Operating profit plus other income less other expenses.
+	measure 'Net Profit' = IF([P&L Range Valid] = 1, [Operating Profit] + [Other Income] - [Other Expenses], BLANK())
+		formatString: #,##0.00;(#,##0.00);0.00
+		displayFolder: P&L
+		lineageTag: cd6af545-8670-4a9f-a761-e3eb8dfb7e7a
+
+	/// Active transaction period and account subtype context for the overview.
+	measure 'Report Context' = VAR _month = SELECTEDVALUE('Reporting Month'[Month Start]) VAR _view = SELECTEDVALUE('Reporting View'[View], "Monthly") VAR _from = IF(_view = "YTD", DATE(YEAR(_month), 1, 1), _month) VAR _to = _month VAR _firstData = CALCULATE(MIN('silver fact_gl'[txn_date]), REMOVEFILTERS()) VAR _lastData = CALCULATE(MAX('silver fact_gl'[txn_date]), REMOVEFILTERS()) VAR _scope = IF(ISFILTERED('silver dim_account'[account_subtype]), "Filtered to: " & CONCATENATEX(VALUES('silver dim_account'[account_subtype]), 'silver dim_account'[account_subtype], ", "), "All account subtypes") RETURN IF(ISBLANK(_month), "Select one Reporting Month", IF([P&L Range Valid] <> 1, "INCOMPLETE HISTORY: Full YTD data is unavailable for this year. Select Monthly or a later year. Results hidden.", IF(_view = "YTD", "YTD: Jan-" & FORMAT(_month, "yy") & " through " & FORMAT(_month, "MMM-yy", "en-US") & " | MoM not applicable", "Monthly: " & FORMAT(_month, "MMM-yy", "en-US")) & " | " & _scope))
+		formatString: @
+		displayFolder: P&L
+		lineageTag: b5ee4b7a-22c2-46fd-b6c3-b5b56edbaa1a
+
+	/// Signed ledger amount within the inclusive selected month range.
+	measure 'P&L Range Amount' = VAR _month = SELECTEDVALUE('Reporting Month'[Month Start]) VAR _view = SELECTEDVALUE('Reporting View'[View], "Monthly") VAR _from = IF(_view = "YTD", DATE(YEAR(_month), 1, 1), _month) VAR _to = _month VAR _firstData = CALCULATE(MIN('silver fact_gl'[txn_date]), REMOVEFILTERS()) VAR _lastData = CALCULATE(MAX('silver fact_gl'[txn_date]), REMOVEFILTERS()) VAR _offset = SELECTEDVALUE('P&L Comparison Offset'[Months], 0) VAR _start = EDATE(_from, _offset) VAR _end = EDATE(_to, _offset) RETURN IF([P&L Range Valid] = 1, CALCULATE(SUM('silver fact_gl'[signed_amount]), KEEPFILTERS('silver fact_gl'[txn_date] >= _start), KEEPFILTERS('silver fact_gl'[txn_date] < EDATE(_end, 1))), BLANK())
+		formatString: #,##0.00;(#,##0.00);0.00
+		isHidden
+		displayFolder: P&L
+		lineageTag: 16a8a9f7-aa5f-4e51-98fc-8be0a1516ac0
+
+	/// Limits end-month choices to months strictly after the selected start month.
+	measure 'To Month Available' = VAR _from = SELECTEDVALUE('From Month'[Month Start], MINX(ALL('From Month'), 'From Month'[Month Start])) VAR _candidate = MAX('To Month'[Month Start]) RETURN IF(NOT ISBLANK(_candidate) && _candidate > _from, 1, 0)
+		formatString: 0
+		isHidden
+		displayFolder: P&L
+		lineageTag: 1498f333-731d-4385-b2b2-310093e36f06
+
+	/// Whether the selected end month is strictly after the selected start month.
+	measure 'P&L Range Valid' = VAR _month = SELECTEDVALUE('Reporting Month'[Month Start]) VAR _view = SELECTEDVALUE('Reporting View'[View], "Monthly") VAR _from = IF(_view = "YTD", DATE(YEAR(_month), 1, 1), _month) VAR _to = _month VAR _firstData = CALCULATE(MIN('silver fact_gl'[txn_date]), REMOVEFILTERS()) VAR _lastData = CALCULATE(MAX('silver fact_gl'[txn_date]), REMOVEFILTERS()) RETURN IF(NOT ISBLANK(_month) && _from >= DATE(YEAR(_firstData), MONTH(_firstData), 1) && _to <= DATE(YEAR(_lastData), MONTH(_lastData), 1), 1, 0)
+		formatString: 0
+		isHidden
+		displayFolder: P&L
+		lineageTag: 7ce766d7-6692-4570-818b-2719c96e2292
+
+	measure 'P&L Actual' = IF([P&L Range Valid] = 1, SWITCH(SELECTEDVALUE('P&L Lines'[Line]), "Revenue", [Revenue], "Cost of Goods Sold", [Cost of Goods Sold], "Gross Profit", [Gross Profit], "Operating Expenses", [Operating Expenses], "Operating Profit", [Operating Profit], "Other Income", [Other Income], "Other Expenses", [Other Expenses], "Net Profit", [Net Profit], "Depreciation add-back", [Depreciation], "Less: Interest Income", [Interest Income], "EBITDA", [EBITDA]), BLANK())
+		formatString: #,##0;(#,##0);0
+		displayFolder: P&L\Variance
+		lineageTag: b2c6a4a2-fde5-4d5c-b054-605d2eea056d
+
+	measure 'P&L Prior Year' = VAR _month = SELECTEDVALUE('Reporting Month'[Month Start]) VAR _view = SELECTEDVALUE('Reporting View'[View], "Monthly") VAR _from = IF(_view = "YTD", DATE(YEAR(_month), 1, 1), _month) VAR _to = _month VAR _firstData = CALCULATE(MIN('silver fact_gl'[txn_date]), REMOVEFILTERS()) VAR _lastData = CALCULATE(MAX('silver fact_gl'[txn_date]), REMOVEFILTERS()) VAR _start = EDATE(_from, -12) VAR _end = EDATE(_to, -12) RETURN IF([P&L Range Valid] = 1 && _start >= DATE(YEAR(_firstData), MONTH(_firstData), 1) && _end <= DATE(YEAR(_lastData), MONTH(_lastData), 1), CALCULATE([P&L Actual], REMOVEFILTERS('P&L Comparison Offset'), TREATAS({-12}, 'P&L Comparison Offset'[Months])), BLANK())
+		formatString: #,##0;(#,##0);0
+		displayFolder: P&L\Variance
+		lineageTag: d9f2ef21-ad15-4da8-a05e-5fdd3a736e63
+
+	measure 'P&L Prior Month' = VAR _month = SELECTEDVALUE('Reporting Month'[Month Start]) VAR _view = SELECTEDVALUE('Reporting View'[View], "Monthly") VAR _from = IF(_view = "YTD", DATE(YEAR(_month), 1, 1), _month) VAR _to = _month VAR _firstData = CALCULATE(MIN('silver fact_gl'[txn_date]), REMOVEFILTERS()) VAR _lastData = CALCULATE(MAX('silver fact_gl'[txn_date]), REMOVEFILTERS()) VAR _start = EDATE(_from, -1) VAR _end = EDATE(_to, -1) RETURN IF([P&L Range Valid] = 1 && _view = "Monthly" && _start >= DATE(YEAR(_firstData), MONTH(_firstData), 1) && _end <= DATE(YEAR(_lastData), MONTH(_lastData), 1), CALCULATE([P&L Actual], REMOVEFILTERS('P&L Comparison Offset'), TREATAS({-1}, 'P&L Comparison Offset'[Months])), BLANK())
+		formatString: #,##0;(#,##0);0
+		displayFolder: P&L\Variance
+		lineageTag: 611e7c74-4886-4017-a4f2-a9abdcfa7d75
+
+	measure 'P&L YoY Change' = VAR _actual = [P&L Actual] VAR _prior = [P&L Prior Year] RETURN IF(NOT ISBLANK(_actual) && NOT ISBLANK(_prior), _actual - _prior, BLANK())
+		formatString: #,##0;(#,##0);0
+		displayFolder: P&L\Variance
+		lineageTag: 8ac58bce-db1d-4185-a180-ba9c91f2fdd7
+
+	measure 'P&L YoY Percent' = DIVIDE([P&L YoY Change], ABS([P&L Prior Year]))
+		formatString: 0.0%;(0.0%);0.0%
+		displayFolder: P&L\Variance
+		lineageTag: 1b092625-15de-4c9f-925d-c4033f15d756
+
+	measure 'P&L MoM Change' = VAR _actual = [P&L Actual] VAR _prior = [P&L Prior Month] RETURN IF(NOT ISBLANK(_actual) && NOT ISBLANK(_prior), _actual - _prior, BLANK())
+		formatString: #,##0;(#,##0);0
+		displayFolder: P&L\Variance
+		lineageTag: 41237f10-5f7c-4164-90dc-dcbfc318ac25
+
+	measure 'P&L MoM Percent' = DIVIDE([P&L MoM Change], ABS([P&L Prior Month]))
+		formatString: 0.0%;(0.0%);0.0%
+		displayFolder: P&L\Variance
+		lineageTag: ab25a652-cd5f-4968-9277-5a69b237a08a
+
+	/// Positive means favorable: revenue and profit up, expenses down.
+	measure 'P&L YoY Favorability' = VAR _change = [P&L YoY Change] VAR _cost = SELECTEDVALUE('P&L Lines'[Line]) IN {"Cost of Goods Sold", "Operating Expenses", "Other Expenses", "Depreciation add-back"} RETURN IF(ISBLANK(_change), BLANK(), _change * IF(_cost, -1, 1))
+		isHidden
+		displayFolder: P&L\Variance
+		lineageTag: 9a2ee420-e39e-4c3c-8344-11b03899e2b0
+
+	/// Positive means favorable: revenue and profit up, expenses down.
+	measure 'P&L MoM Favorability' = VAR _change = [P&L MoM Change] VAR _cost = SELECTEDVALUE('P&L Lines'[Line]) IN {"Cost of Goods Sold", "Operating Expenses", "Other Expenses", "Depreciation add-back"} RETURN IF(ISBLANK(_change), BLANK(), _change * IF(_cost, -1, 1))
+		isHidden
+		displayFolder: P&L\Variance
+		lineageTag: 9b6d7ce5-35b1-4107-8f69-6f03c9d857e5
+
+	/// EBITDA bridge uses mapped depreciation and interest income. Operating taxes/licenses remain expenses; no separate amortization, interest expense or income tax accounts exist in the current model.
+	measure Depreciation = IF([P&L Range Valid] = 1, COALESCE(CALCULATE([P&L Range Amount], KEEPFILTERS('silver dim_account'[account_subtype] = "Depreciation"), KEEPFILTERS('silver dim_account'[account_type] IN {"Expense", "Other Expense", "Cost of Goods Sold"})), 0), BLANK())
+		formatString: #,##0.00;(#,##0.00);0.00
+		displayFolder: P&L
+		lineageTag: 9acfbf35-8f9b-460f-9b8c-6652badd292f
+
+	/// EBITDA bridge uses mapped depreciation and interest income. Operating taxes/licenses remain expenses; no separate amortization, interest expense or income tax accounts exist in the current model.
+	measure 'Interest Income' = IF([P&L Range Valid] = 1, COALESCE(-CALCULATE([P&L Range Amount], KEEPFILTERS('silver dim_account'[account_subtype] = "InterestEarned"), KEEPFILTERS('silver dim_account'[account_type] IN {"Income", "Other Income"})), 0), BLANK())
+		formatString: #,##0.00;(#,##0.00);0.00
+		displayFolder: P&L
+		lineageTag: 985a3576-3e2b-491e-bd2d-f08ddfa62018
+
+	/// EBITDA bridge uses mapped depreciation and interest income. Operating taxes/licenses remain expenses; no separate amortization, interest expense or income tax accounts exist in the current model.
+	measure EBITDA = IF([P&L Range Valid] = 1, [Net Profit] + [Depreciation] - [Interest Income], BLANK())
+		formatString: #,##0.00;(#,##0.00);0.00
+		displayFolder: P&L
+		lineageTag: 2ee92873-c5ca-4368-ad2a-119cc9904e29
+
+	measure 'Bridge Actual' = VAR _month = SELECTEDVALUE('Reporting Month'[Month Start]) VAR _metric = SELECTEDVALUE('Bridge Metric'[Metric], "Revenue") VAR _type = IF(_metric = "COGS", "Cost of Goods Sold", "Income") VAR _sign = IF(_metric = "COGS", 1, -1) RETURN IF(NOT ISBLANK(_month), COALESCE(_sign * CALCULATE(SUM('silver fact_gl'[signed_amount]), KEEPFILTERS('silver dim_account'[account_type] = _type), KEEPFILTERS('silver fact_gl'[txn_date] >= _month), KEEPFILTERS('silver fact_gl'[txn_date] < EDATE(_month, 1))), 0), BLANK())
+		formatString: #,##0;(#,##0);0
+		displayFolder: Variance Bridge
+		lineageTag: 682476b7-3f25-4710-ab21-5fa9c06cb693
+
+	measure 'Bridge Prior' = VAR _month = SELECTEDVALUE('Reporting Month'[Month Start]) VAR _metric = SELECTEDVALUE('Bridge Metric'[Metric], "Revenue") VAR _type = IF(_metric = "COGS", "Cost of Goods Sold", "Income") VAR _comparison = SELECTEDVALUE('Bridge Comparison'[Comparison], "YoY") VAR _offset = IF(_comparison = "MoM", -1, -12) VAR _prior = EDATE(_month, _offset) VAR _first = CALCULATE(MIN('silver fact_gl'[txn_date]), REMOVEFILTERS()) VAR _glSign = IF(_metric = "COGS", 1, -1) VAR _planSign = IF(_metric = "COGS", -1, 1) VAR _latestForecast = CALCULATE(MAX('gold fpa_version'[forecast_as_of]), REMOVEFILTERS('gold fpa_version'), 'gold fpa_version'[scenario] = "Forecast") VAR _historical = IF(_prior >= DATE(YEAR(_first), MONTH(_first), 1), COALESCE(_glSign * CALCULATE(SUM('silver fact_gl'[signed_amount]), KEEPFILTERS('silver dim_account'[account_type] = _type), KEEPFILTERS('silver fact_gl'[txn_date] >= _prior), KEEPFILTERS('silver fact_gl'[txn_date] < EDATE(_prior, 1))), 0), BLANK()) VAR _budget = _planSign * CALCULATE(SUM('gold fpa_monthly'[reporting_amount_usd]), KEEPFILTERS('silver dim_account'[account_type] = _type), 'gold fpa_monthly'[scenario] = "Budget", 'gold fpa_monthly'[month_start] = _month) VAR _forecast = _planSign * CALCULATE(SUM('gold fpa_monthly'[reporting_amount_usd]), KEEPFILTERS('silver dim_account'[account_type] = _type), 'gold fpa_monthly'[scenario] = "Forecast", 'gold fpa_monthly'[forecast_as_of] = _latestForecast, 'gold fpa_monthly'[month_start] = _month) RETURN IF(ISBLANK(_month), BLANK(), SWITCH(_comparison, "vs Budget", _budget, "vs Forecast", _forecast, _historical))
+		formatString: #,##0;(#,##0);0
+		displayFolder: Variance Bridge
+		lineageTag: 0cc2dce8-0659-45f1-bf62-9f24f9143b20
+
+	measure 'Bridge Change' = VAR _a = [Bridge Actual] VAR _p = [Bridge Prior] RETURN IF(NOT ISBLANK(_a) && NOT ISBLANK(_p), _a - _p, BLANK())
+		formatString: #,##0;(#,##0);0
+		displayFolder: Variance Bridge
+		lineageTag: 19a21c8d-3a7b-4f15-98e0-0ef4ba25f08f
+
+	measure 'Bridge Percent' = DIVIDE([Bridge Change], ABS([Bridge Prior]))
+		formatString: 0.0%;(0.0%);0.0%
+		displayFolder: Variance Bridge
+		lineageTag: 69894c28-9190-493a-b041-ade5054630a0
+
+	measure 'Bridge Favorability' = VAR _change = [Bridge Change] RETURN IF(ISBLANK(_change), BLANK(), _change * IF(SELECTEDVALUE('Bridge Metric'[Metric], "Revenue") = "COGS", -1, 1))
+		formatString: #,##0;(#,##0);0
+		displayFolder: Variance Bridge
+		lineageTag: 596af75e-4ed6-48c0-a5d2-1a8c2a0d1237
+
+	measure 'Bridge Is COGS' = IF(SELECTEDVALUE('Bridge Metric'[Metric], "Revenue") = "COGS", 1, 0)
+		formatString: #,##0;(#,##0);0
+		displayFolder: Variance Bridge
+		lineageTag: fe6761fb-bb03-4e43-a7ed-eb068c1e1b3a
+
+	measure 'Bridge Value' = VAR _month = SELECTEDVALUE('Reporting Month'[Month Start]) VAR _comparison = SELECTEDVALUE('Bridge Comparison'[Comparison], "YoY") VAR _offset = IF(_comparison = "MoM", -1, -12) VAR _prior = EDATE(_month, _offset) VAR _axisMonth = SELECTEDVALUE('Bridge Month'[Month Start]) VAR _axisType = SELECTEDVALUE('Bridge Month'[Axis Type]) RETURN IF(NOT ISBLANK([Bridge Prior]) && NOT ISBLANK(_month), SWITCH(TRUE(), _comparison IN {"YoY", "MoM"} && _axisType = "Historical" && _axisMonth = _prior, [Bridge Prior], _comparison IN {"YoY", "MoM"} && _axisType = "Historical" && _axisMonth = _month, [Bridge Actual], _comparison = "vs Budget" && _axisType = "Budget" && _axisMonth = _month, [Bridge Prior], _comparison = "vs Forecast" && _axisType = "Forecast" && _axisMonth = _month, [Bridge Prior], _comparison IN {"vs Budget", "vs Forecast"} && _axisType = "Actual" && _axisMonth = _month, [Bridge Actual], BLANK()), BLANK())
+		formatString: #,##0;(#,##0);0
+		displayFolder: Variance Bridge
+		lineageTag: a8db526c-ac58-4808-986b-c35879b83f71
+
+	measure 'Bridge Account Relevant' = VAR _type = IF(SELECTEDVALUE('Bridge Metric'[Metric], "Revenue") = "COGS", "Cost of Goods Sold", "Income") VAR _matching = CALCULATE(COUNTROWS('silver dim_account'), KEEPFILTERS('silver dim_account'[account_type] = _type)) RETURN IF(_matching > 0 && ([Bridge Actual] <> 0 || [Bridge Prior] <> 0), 1, 0)
+		formatString: #,##0;(#,##0);0
+		displayFolder: Variance Bridge
+		lineageTag: d57a1e32-c7e6-4786-9df1-6fdcea6ba5ad
+
+	measure 'Bridge Context' = VAR _month = SELECTEDVALUE('Reporting Month'[Month Start]) VAR _metric = SELECTEDVALUE('Bridge Metric'[Metric], "Revenue") VAR _comparison = SELECTEDVALUE('Bridge Comparison'[Comparison], "YoY") VAR _offset = IF(_comparison = "MoM", -1, -12) VAR _prior = EDATE(_month, _offset) VAR _latestForecast = CALCULATE(MAX('gold fpa_version'[forecast_as_of]), REMOVEFILTERS('gold fpa_version'), 'gold fpa_version'[scenario] = "Forecast") VAR _forecastBasis = CALCULATE(SELECTEDVALUE('gold fpa_monthly'[basis]), 'gold fpa_monthly'[scenario] = "Forecast", 'gold fpa_monthly'[forecast_as_of] = _latestForecast, 'gold fpa_monthly'[month_start] = _month) VAR _firstForecastMonth = CALCULATE(MIN('gold fpa_monthly'[month_start]), REMOVEFILTERS('gold fpa_monthly'), 'gold fpa_monthly'[scenario] = "Forecast", 'gold fpa_monthly'[forecast_as_of] = _latestForecast, 'gold fpa_monthly'[basis] = "Forecast") VAR _comparisonLabel = SWITCH(_comparison, "vs Budget", "Budget " & FORMAT(_month, "MMM-yy", "en-US"), "vs Forecast", "Forecast " & FORMAT(_month, "MMM-yy", "en-US"), FORMAT(_prior, "MMM-yy", "en-US")) VAR _missing = SWITCH(_comparison, "vs Budget", "NO BUDGET: Budget is unavailable for " & FORMAT(_month, "MMM-yy", "en-US"), "vs Forecast", "NO FORECAST: The latest forecast is unavailable for " & FORMAT(_month, "MMM-yy", "en-US"), "INSUFFICIENT HISTORY: The prior comparison month is unavailable for " & FORMAT(_month, "MMM-yy", "en-US")) RETURN IF(ISBLANK(_month), "Select one Reporting Month", IF(ISBLANK([Bridge Prior]), _missing, IF(_comparison = "vs Forecast" && _forecastBasis = "Actualized", "⚠ ACTUALIZED FORECAST: " & FORMAT(_month, "MMM-yy", "en-US") & " contains actuals, so Actual vs Forecast is expected to be zero. Select " & FORMAT(_firstForecastMonth, "MMM-yy", "en-US") & " or later for a true forecast comparison.", _metric & " | " & _comparisonLabel & " to Actual " & FORMAT(_month, "MMM-yy", "en-US") & " | " & _comparison & " by account")))
+		formatString: @
+		displayFolder: Variance Bridge
+		lineageTag: c36441de-342b-423c-9fb6-c0c2979013a2
+
+	/// Flags months where the selected forecast series contains actualized history rather than forecast values.
+	measure 'Bridge Forecast Is Actualized' = VAR _month = SELECTEDVALUE('Reporting Month'[Month Start]) VAR _latestForecast = CALCULATE(MAX('gold fpa_version'[forecast_as_of]), REMOVEFILTERS('gold fpa_version'), 'gold fpa_version'[scenario] = "Forecast") VAR _basis = CALCULATE(SELECTEDVALUE('gold fpa_monthly'[basis]), 'gold fpa_monthly'[scenario] = "Forecast", 'gold fpa_monthly'[forecast_as_of] = _latestForecast, 'gold fpa_monthly'[month_start] = _month) RETURN IF(SELECTEDVALUE('Bridge Comparison'[Comparison], "YoY") = "vs Forecast" && _basis = "Actualized", 1, 0)
+		isHidden
+		displayFolder: Variance Bridge
+
+	measure 'Bridge Actual Label' = VAR _month = SELECTEDVALUE('Reporting Month'[Month Start]) RETURN IF(ISBLANK(_month), "Select a month", FORMAT(_month, "MMM-yy", "en-US"))
+		formatString: @
+		displayFolder: Variance Bridge
+		lineageTag: 370a536f-51f5-41f0-9e7d-7dd1d1b13026
+
+	measure 'Bridge Prior Label' = VAR _month = SELECTEDVALUE('Reporting Month'[Month Start]) VAR _comparison = SELECTEDVALUE('Bridge Comparison'[Comparison], "YoY") VAR _offset = IF(_comparison = "MoM", -1, -12) RETURN IF(ISBLANK(_month), "Select a month", SWITCH(_comparison, "vs Budget", "Budget " & FORMAT(_month, "MMM-yy", "en-US"), "vs Forecast", "Forecast " & FORMAT(_month, "MMM-yy", "en-US"), FORMAT(EDATE(_month, _offset), "MMM-yy", "en-US")))
+		formatString: @
+		displayFolder: Variance Bridge
+		lineageTag: 56adead6-4557-462e-80ec-772131040a2c
+
+	/// Dynamic lower bound that zooms the waterfall around the two endpoint totals.
+	measure 'Bridge Axis Minimum' = VAR _comparison = [Bridge Prior] VAR _actual = [Bridge Actual] VAR _driverMagnitude = SUMX(VALUES('silver dim_account'[account_name]), ABS([Bridge Change])) VAR _padding = MAX(MAX(ABS(_comparison), ABS(_actual)) * 0.03, _driverMagnitude * 0.25) RETURN IF(NOT ISBLANK(_comparison) && NOT ISBLANK(_actual), MAX(0, MIN(_comparison, _actual) - _padding), BLANK())
+		isHidden
+		displayFolder: Variance Bridge
+		lineageTag: 5e8bc20c-c2c9-4812-b3e9-6c433dfbf89b
+
+	/// Dynamic upper bound that preserves headroom for labels while emphasizing the variance steps.
+	measure 'Bridge Axis Maximum' = VAR _comparison = [Bridge Prior] VAR _actual = [Bridge Actual] VAR _driverMagnitude = SUMX(VALUES('silver dim_account'[account_name]), ABS([Bridge Change])) VAR _padding = MAX(MAX(ABS(_comparison), ABS(_actual)) * 0.03, _driverMagnitude * 0.25) RETURN IF(NOT ISBLANK(_comparison) && NOT ISBLANK(_actual), MAX(_comparison, _actual) + _padding, BLANK())
+		isHidden
+		displayFolder: Variance Bridge
+		lineageTag: 95cdd516-6faf-4aaf-99ce-f6ad78bca959
+
+	column journal_id
+		dataType: string
+		lineageTag: 081bee3a-8d70-4fbe-b33f-25c43adb4d1c
+		summarizeBy: none
+		sourceColumn: journal_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column journal_no
+		dataType: string
+		lineageTag: e46f0f23-3c28-4db6-8f02-e82f0387a874
+		summarizeBy: none
+		sourceColumn: journal_no
+
+		annotation SummarizationSetBy = Automatic
+
+	column txn_date
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 8d760a01-9bae-4e76-90a1-a2eea2499d9a
+		summarizeBy: none
+		sourceColumn: txn_date
+
+		annotation SummarizationSetBy = Automatic
+
+	column line_id
+		dataType: string
+		lineageTag: 391653a1-be0e-466d-a178-8d066a17704b
+		summarizeBy: none
+		sourceColumn: line_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column description
+		dataType: string
+		lineageTag: 6a8e31bc-f621-4409-b85f-39fe2f07cf93
+		summarizeBy: none
+		sourceColumn: description
+
+		annotation SummarizationSetBy = Automatic
+
+	column account_id
+		dataType: string
+		lineageTag: a7e96a53-a88e-4550-96f3-495ac410c0df
+		summarizeBy: none
+		sourceColumn: account_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column account_name
+		dataType: string
+		lineageTag: fa46350f-dbed-43a0-a8e2-19468357a0d1
+		summarizeBy: none
+		sourceColumn: account_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column posting_type
+		dataType: string
+		lineageTag: 9a77887e-9aa2-4c1c-bb4a-273cfe0f8ecd
+		summarizeBy: none
+		sourceColumn: posting_type
+
+		annotation SummarizationSetBy = Automatic
+
+	column amount
+		dataType: double
+		lineageTag: 800b57f6-8d31-45f2-8ff5-8aa4d6be65b8
+		summarizeBy: sum
+		sourceColumn: amount
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column signed_amount
+		dataType: double
+		isHidden
+		lineageTag: 0ca3625d-813c-4ded-aa92-571723bde99e
+		summarizeBy: sum
+		sourceColumn: signed_amount
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column year
+		dataType: int64
+		formatString: 0
+		lineageTag: a0fc935f-2a7a-48ac-99dd-d48375819819
+		summarizeBy: sum
+		sourceColumn: year
+
+		annotation SummarizationSetBy = Automatic
+
+	column month
+		dataType: int64
+		formatString: 0
+		lineageTag: 7466363f-07ce-42b5-80b0-805528353e75
+		summarizeBy: sum
+		sourceColumn: month
+
+		annotation SummarizationSetBy = Automatic
+
+	column year_month
+		dataType: string
+		lineageTag: 9d357ebc-ae45-4505-be2f-168cf386306f
+		summarizeBy: none
+		sourceColumn: year_month
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'silver fact_gl' = m
+		mode: import
+		source =
+				let
+				    Source = Sql.Database("cloudflow-fpa-sql-kr.database.windows.net", "cloudflow_fpa"),
+				    silver_fact_gl = Source{[Schema="silver",Item="fact_gl"]}[Data]
+				in
+				    silver_fact_gl
+

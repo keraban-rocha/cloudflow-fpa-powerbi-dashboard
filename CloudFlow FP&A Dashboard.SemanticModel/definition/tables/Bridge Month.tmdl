@@ -1,0 +1,45 @@
+table 'Bridge Month'
+	lineageTag: 9bbfce6a-cf71-4e50-9525-5373aa299749
+
+	column Month
+		dataType: string
+		lineageTag: 5ee2ba6b-fefa-41fe-b60d-3d0ab8d7be2b
+		summarizeBy: none
+		sourceColumn: [Month]
+		sortByColumn: 'Axis Sort'
+
+	column 'Month Start'
+		dataType: dateTime
+		isHidden
+		lineageTag: a5284c90-a663-4949-942a-03233acb47bb
+		summarizeBy: none
+		sourceColumn: [Month Start]
+
+	column 'Axis Type'
+		dataType: string
+		isHidden
+		lineageTag: def7ae4a-571a-4851-b278-307a6900d88a
+		summarizeBy: none
+		sourceColumn: [Axis Type]
+
+	column 'Axis Sort'
+		dataType: int64
+		isHidden
+		lineageTag: d44e76d4-81ff-4a4b-9596-4d1a34c70830
+		summarizeBy: none
+		sourceColumn: [Axis Sort]
+
+	partition 'Bridge Month' = calculated
+		mode: import
+		source =
+				VAR _first = EDATE(MINX('Reporting Month', 'Reporting Month'[Month Start]), -12)
+				VAR _last = MAXX('Reporting Month', 'Reporting Month'[Month Start])
+				VAR _months = FILTER(CALENDAR(_first, EOMONTH(_last, 0)), DAY([Date]) = 1)
+				RETURN
+					UNION(
+						SELECTCOLUMNS(_months, "Month", FORMAT([Date], "MMM-yy", "en-US"), "Month Start", [Date], "Axis Type", "Historical", "Axis Sort", YEAR([Date]) * 10000 + MONTH([Date]) * 10),
+						SELECTCOLUMNS(_months, "Month", "Budget " & FORMAT([Date], "MMM-yy", "en-US"), "Month Start", [Date], "Axis Type", "Budget", "Axis Sort", YEAR([Date]) * 10000 + MONTH([Date]) * 10 + 1),
+						SELECTCOLUMNS(_months, "Month", "Forecast " & FORMAT([Date], "MMM-yy", "en-US"), "Month Start", [Date], "Axis Type", "Forecast", "Axis Sort", YEAR([Date]) * 10000 + MONTH([Date]) * 10 + 1),
+						SELECTCOLUMNS(_months, "Month", "Actual " & FORMAT([Date], "MMM-yy", "en-US"), "Month Start", [Date], "Axis Type", "Actual", "Axis Sort", YEAR([Date]) * 10000 + MONTH([Date]) * 10 + 2)
+					)
+

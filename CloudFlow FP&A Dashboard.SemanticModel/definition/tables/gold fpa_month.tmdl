@@ -1,0 +1,68 @@
+table 'gold fpa_month'
+	lineageTag: 4d569a9a-3775-4613-a34c-bb67cf5f2e1a
+
+	column month_start
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 495bf116-303c-46fb-8788-620225ac225f
+		summarizeBy: none
+		sourceColumn: month_start
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column calendar_year
+		dataType: int64
+		formatString: 0
+		lineageTag: d5653723-135c-4bc5-9f22-8772ca503964
+		summarizeBy: sum
+		sourceColumn: calendar_year
+
+		annotation SummarizationSetBy = Automatic
+
+	column calendar_month
+		dataType: int64
+		formatString: 0
+		lineageTag: f6c8e5e9-2c4e-4f70-b7a1-b7a8ef86b522
+		summarizeBy: sum
+		sourceColumn: calendar_month
+
+		annotation SummarizationSetBy = Automatic
+
+	column year_month
+		dataType: string
+		lineageTag: e0cef6a5-cb59-4597-93bf-2a3f53fb2d04
+		summarizeBy: none
+		sourceColumn: year_month
+
+		annotation SummarizationSetBy = Automatic
+
+	column fiscal_year
+		dataType: int64
+		formatString: 0
+		lineageTag: 007f20d6-9efa-4387-a867-d4a7f87b3c8d
+		summarizeBy: sum
+		sourceColumn: fiscal_year
+
+		annotation SummarizationSetBy = Automatic
+
+	column fiscal_month
+		dataType: int64
+		formatString: 0
+		lineageTag: 1924ed91-29e0-443d-9971-42d8dc7e131b
+		summarizeBy: sum
+		sourceColumn: fiscal_month
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'gold fpa_month' = m
+		mode: import
+		source =
+				let
+				    Source = Sql.Databases("cloudflow-fpa-sql-kr.database.windows.net"),
+				    cloudflow_fpa = Source{[Name="cloudflow_fpa"]}[Data],
+				    gold_fpa_month = cloudflow_fpa{[Schema="gold",Item="fpa_month"]}[Data]
+				in
+				    gold_fpa_month
+

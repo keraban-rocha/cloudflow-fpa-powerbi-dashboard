@@ -1,0 +1,93 @@
+table 'silver dim_customer'
+	lineageTag: e0e672eb-254b-4f62-aa6b-1f123b923230
+
+	column customer_id
+		dataType: string
+		lineageTag: 5dd54d2e-26fa-4683-a87c-a45525ef63d0
+		summarizeBy: none
+		sourceColumn: customer_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column display_name
+		dataType: string
+		lineageTag: 8bdcf8bc-f1e5-47c0-9210-2bdec2c03910
+		summarizeBy: none
+		sourceColumn: display_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column company_name
+		dataType: string
+		lineageTag: 00a94f3a-e884-491c-bc39-be995c376797
+		summarizeBy: none
+		sourceColumn: company_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column email
+		dataType: string
+		lineageTag: 4883f677-91d6-49d7-8f5b-008c01e137f3
+		summarizeBy: none
+		sourceColumn: email
+
+		annotation SummarizationSetBy = Automatic
+
+	column phone
+		dataType: string
+		lineageTag: 60a929b6-b442-4c5c-928e-edf699cc5749
+		summarizeBy: none
+		sourceColumn: phone
+
+		annotation SummarizationSetBy = Automatic
+
+	column city
+		dataType: string
+		lineageTag: 7362fd0f-7991-4cfa-afe2-7c6d34f2878b
+		summarizeBy: none
+		sourceColumn: city
+
+		annotation SummarizationSetBy = Automatic
+
+	column state
+		dataType: string
+		lineageTag: 9628d31d-1106-42d7-89d4-03ff1dbcb0c0
+		summarizeBy: none
+		sourceColumn: state
+
+		annotation SummarizationSetBy = Automatic
+
+	column postal_code
+		dataType: string
+		lineageTag: 62f1e3de-59d3-4a87-a773-cc67cc80bdf1
+		summarizeBy: none
+		sourceColumn: postal_code
+
+		annotation SummarizationSetBy = Automatic
+
+	column country
+		dataType: string
+		lineageTag: 7f4e4185-efc9-4dad-99a3-a8afb9aa640d
+		summarizeBy: none
+		sourceColumn: country
+
+		annotation SummarizationSetBy = Automatic
+
+	column active
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: 90b4d888-085e-4d4a-bcbc-70fd6047acce
+		summarizeBy: none
+		sourceColumn: active
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'silver dim_customer' = m
+		mode: import
+		source =
+				let
+				    Source = Sql.Database("cloudflow-fpa-sql-kr.database.windows.net", "cloudflow_fpa"),
+				    silver_dim_customer = Source{[Schema="silver",Item="dim_customer"]}[Data]
+				in
+				    silver_dim_customer
+

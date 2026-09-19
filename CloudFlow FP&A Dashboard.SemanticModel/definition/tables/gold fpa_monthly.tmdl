@@ -1,0 +1,95 @@
+table 'gold fpa_monthly'
+	lineageTag: aefbdda7-bea7-4a50-933d-867d32b20509
+
+	column month_start
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 1ca288b6-6aff-4a4c-9344-fe643d87fe4c
+		summarizeBy: none
+		sourceColumn: month_start
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column account_id
+		dataType: string
+		lineageTag: 6a5f921f-326d-4a9d-ba46-a60bd548de06
+		summarizeBy: none
+		sourceColumn: account_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column scenario
+		dataType: string
+		lineageTag: 80826009-26cf-4c7d-84b7-8c2d4783c6e1
+		summarizeBy: none
+		sourceColumn: scenario
+
+		annotation SummarizationSetBy = Automatic
+
+	column version_key
+		dataType: string
+		lineageTag: 70b16f7e-400f-448d-b0b6-63768a12e25c
+		summarizeBy: none
+		sourceColumn: version_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column version_name
+		dataType: string
+		lineageTag: 1344beda-a895-4afb-afd7-4bd8ad011b61
+		summarizeBy: none
+		sourceColumn: version_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column forecast_as_of
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: b1b68355-2608-42ca-81b3-69e6f910c7f8
+		summarizeBy: none
+		sourceColumn: forecast_as_of
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column basis
+		dataType: string
+		lineageTag: fcd0d40d-f6ee-45fc-b3a9-9f444fa87732
+		summarizeBy: none
+		sourceColumn: basis
+
+		annotation SummarizationSetBy = Automatic
+
+	column amount_usd
+		dataType: double
+		lineageTag: 5d94a880-043d-4c89-aded-db77e148bb51
+		summarizeBy: sum
+		sourceColumn: amount_usd
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column reporting_amount_usd
+		dataType: double
+		lineageTag: 84a72c9c-552c-435e-b549-c4f18f4899e2
+		summarizeBy: sum
+		sourceColumn: reporting_amount_usd
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition 'gold fpa_monthly' = m
+		mode: import
+		source =
+				let
+				    Source = Sql.Databases("cloudflow-fpa-sql-kr.database.windows.net"),
+				    cloudflow_fpa = Source{[Name="cloudflow_fpa"]}[Data],
+				    gold_fpa_monthly = cloudflow_fpa{[Schema="gold",Item="fpa_monthly"]}[Data]
+				in
+				    gold_fpa_monthly
+

@@ -1,0 +1,48 @@
+table 'gold fpa_version'
+	lineageTag: ca78b868-72f0-45ef-803e-d8c37a8ac6a8
+
+	column version_key
+		dataType: string
+		lineageTag: e66d94d8-b10f-4646-a3ad-c9cd8f7cee07
+		summarizeBy: none
+		sourceColumn: version_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column scenario
+		dataType: string
+		lineageTag: d3010b3b-ef8e-4c72-8023-4ad5a9f25892
+		summarizeBy: none
+		sourceColumn: scenario
+
+		annotation SummarizationSetBy = Automatic
+
+	column version_name
+		dataType: string
+		lineageTag: 51680d17-0c8a-4979-a63a-8fee23396add
+		summarizeBy: none
+		sourceColumn: version_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column forecast_as_of
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 9e16948a-3b45-45b4-b092-d450fdb148f3
+		summarizeBy: none
+		sourceColumn: forecast_as_of
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	partition 'gold fpa_version' = m
+		mode: import
+		source =
+				let
+				    Source = Sql.Databases("cloudflow-fpa-sql-kr.database.windows.net"),
+				    cloudflow_fpa = Source{[Name="cloudflow_fpa"]}[Data],
+				    gold_fpa_version = cloudflow_fpa{[Schema="gold",Item="fpa_version"]}[Data]
+				in
+				    gold_fpa_version
+

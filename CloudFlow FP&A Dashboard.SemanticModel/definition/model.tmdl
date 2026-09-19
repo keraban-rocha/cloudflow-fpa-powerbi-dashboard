@@ -1,0 +1,35 @@
+model Model
+	culture: en-US
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	sourceQueryCulture: pt-PT
+	valueFilterBehavior: independent
+	dataAccessOptions
+		legacyRedirects
+		returnErrorValuesAsNull
+
+annotation __PBI_TimeIntelligenceEnabled = 0
+
+annotation PBI_ProTooling = ["DevMode"]
+
+annotation PBI_QueryOrder = ["gold pnl_monthly_actual","silver dim_account","silver dim_customer","silver fact_gl","gold fpa_monthly","gold fpa_version","gold fpa_month"]
+
+ref table 'gold pnl_monthly_actual'
+ref table 'silver dim_account'
+ref table 'silver dim_customer'
+ref table 'silver fact_gl'
+ref table 'From Month'
+ref table 'To Month'
+ref table 'P&L Lines'
+ref table 'P&L Comparison Offset'
+ref table 'Reporting Month'
+ref table 'Reporting View'
+ref table 'Bridge Metric'
+ref table 'Bridge Comparison'
+ref table 'Bridge Period'
+ref table 'Bridge Month'
+ref table 'gold fpa_monthly'
+ref table 'gold fpa_version'
+ref table 'gold fpa_month'
+
+ref cultureInfo en-US
+

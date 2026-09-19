@@ -1,0 +1,77 @@
+table 'silver dim_account'
+	lineageTag: c537a0a0-3832-4d06-b721-df0bc630eceb
+
+	column account_id
+		dataType: string
+		lineageTag: 2e44c65d-4f9e-4eed-a6d2-c0c1e26c3bad
+		summarizeBy: none
+		sourceColumn: account_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column account_name
+		dataType: string
+		lineageTag: 82c2c4d0-5af0-4ef3-8514-f1e1e9210ea5
+		summarizeBy: none
+		sourceColumn: account_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column account_number
+		dataType: string
+		lineageTag: dfb6af49-7d85-450e-a249-7ee71fb390f7
+		summarizeBy: none
+		sourceColumn: account_number
+
+		annotation SummarizationSetBy = Automatic
+
+	column account_type
+		dataType: string
+		lineageTag: d2b00769-708d-4706-8cbb-d2eca1da1e57
+		summarizeBy: none
+		sourceColumn: account_type
+
+		annotation SummarizationSetBy = Automatic
+
+	column account_subtype
+		dataType: string
+		lineageTag: 649c958a-d70d-4e2a-8f72-829e32643d06
+		summarizeBy: none
+		sourceColumn: account_subtype
+
+		annotation SummarizationSetBy = Automatic
+
+	column classification
+		dataType: string
+		lineageTag: 53be2241-6f0e-4e78-8a01-726cfe2b6273
+		summarizeBy: none
+		sourceColumn: classification
+
+		annotation SummarizationSetBy = Automatic
+
+	column fully_qualified_name
+		dataType: string
+		lineageTag: cc9ac9b7-c083-4148-993d-f96306028ac4
+		summarizeBy: none
+		sourceColumn: fully_qualified_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column active
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: 7e234335-0bc1-4b1d-8749-61b0a8fc039e
+		summarizeBy: none
+		sourceColumn: active
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'silver dim_account' = m
+		mode: import
+		source =
+				let
+				    Source = Sql.Database("cloudflow-fpa-sql-kr.database.windows.net", "cloudflow_fpa"),
+				    silver_dim_account = Source{[Schema="silver",Item="dim_account"]}[Data]
+				in
+				    silver_dim_account
+

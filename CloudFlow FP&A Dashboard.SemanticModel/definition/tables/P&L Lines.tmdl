@@ -1,0 +1,21 @@
+table 'P&L Lines'
+	lineageTag: 8440089a-aa0c-4ea8-8b3f-d9f976a04b46
+
+	column Line
+		dataType: string
+		lineageTag: 42be31b8-04be-4471-aaf6-1dc73e73844b
+		summarizeBy: none
+		sourceColumn: [Line]
+		sortByColumn: Sort
+
+	column Sort
+		dataType: int64
+		isHidden
+		lineageTag: f625fe2c-f4a5-44da-a481-a90cb4089504
+		summarizeBy: none
+		sourceColumn: [Sort]
+
+	partition 'P&L Lines' = calculated
+		mode: import
+		source = DATATABLE("Line", STRING, "Sort", INTEGER, {{"Revenue", 1}, {"Cost of Goods Sold", 2}, {"Gross Profit", 3}, {"Operating Expenses", 4}, {"Operating Profit", 5}, {"Other Income", 6}, {"Other Expenses", 7}, {"Net Profit", 8}, {"Depreciation add-back", 9}, {"Less: Interest Income", 10}, {"EBITDA", 11}})
+

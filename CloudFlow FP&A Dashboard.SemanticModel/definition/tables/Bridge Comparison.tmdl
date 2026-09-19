@@ -1,0 +1,13 @@
+table 'Bridge Comparison'
+	lineageTag: e3fdb34b-2670-47c7-8e68-f5c14f41268d
+
+	column Comparison
+		dataType: string
+		lineageTag: 35d89e24-9be1-4362-b80a-1f25c3d1ded7
+		summarizeBy: none
+		sourceColumn: [Comparison]
+
+	partition 'Bridge Comparison' = calculated
+		mode: import
+		source = DATATABLE("Comparison", STRING, {{"YoY"}, {"MoM"}, {"vs Budget"}, {"vs Forecast"}})
+

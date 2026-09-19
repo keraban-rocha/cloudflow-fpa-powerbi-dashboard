@@ -1,0 +1,21 @@
+table 'Bridge Period'
+	lineageTag: 0b2fc594-baf0-4e35-9f76-9142fe0135a2
+
+	column Period
+		dataType: string
+		lineageTag: bb26d35d-f5de-488c-9069-dd5c72aa4ace
+		summarizeBy: none
+		sourceColumn: [Period]
+		sortByColumn: Sort
+
+	column Sort
+		dataType: int64
+		isHidden
+		lineageTag: 25978c8e-3f62-47e4-a53d-021cce75c371
+		summarizeBy: none
+		sourceColumn: [Sort]
+
+	partition 'Bridge Period' = calculated
+		mode: import
+		source = DATATABLE("Period", STRING, "Sort", INTEGER, {{"Prior period", 1}, {"Selected month", 2}})
+

@@ -1,0 +1,13 @@
+table 'Reporting View'
+	lineageTag: a06493ed-77dd-4c62-9569-4078345c0598
+
+	column View
+		dataType: string
+		lineageTag: 615f4180-ba25-4ea6-8087-75aa4793dea9
+		summarizeBy: none
+		sourceColumn: [View]
+
+	partition 'Reporting View' = calculated
+		mode: import
+		source = DATATABLE("View", STRING, {{"Monthly"}, {"YTD"}})
+

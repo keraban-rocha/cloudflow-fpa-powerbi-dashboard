@@ -39,19 +39,7 @@ cultureInfo en-US
 			          "ConceptualProperty": "Line"
 			        }
 			      },
-			      "State": "Generated",
-			      "Terms": [
-			        {
-			          "P&L line": {
-			            "State": "Suggested",
-			            "Source": {
-			              "Type": "External",
-			              "Agent": "PowerBI.VisualColumnRename"
-			            },
-			            "Weight": 0.9
-			          }
-			        }
-			      ]
+			      "State": "Generated"
 			    },
 			    "silver_fact_gl.pl_actual": {
 			      "Definition": {
@@ -442,6 +430,48 @@ cultureInfo en-US
 			      "Terms": [
 			        {
 			          "Month": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "pl_lines.line_label": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "P&L Lines",
+			          "ConceptualProperty": "Line Label"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "P&L line": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "pl_lines.pl_line_tooltip": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "P&L Lines",
+			          "ConceptualProperty": "P&L Line Tooltip"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Definition": {
 			            "State": "Suggested",
 			            "Source": {
 			              "Type": "External",

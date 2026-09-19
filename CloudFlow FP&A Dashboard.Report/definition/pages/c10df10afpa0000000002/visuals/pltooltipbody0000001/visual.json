@@ -1,13 +1,13 @@
 {
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.9.0/schema.json",
-  "name": "fa76f118f15cbb781ab6",
+  "name": "pltooltipbody0000001",
   "position": {
-    "x": 32,
-    "y": 112,
-    "width": 1376,
-    "height": 40,
-    "z": 3,
-    "tabOrder": 3
+    "x": 16,
+    "y": 48,
+    "width": 388,
+    "height": 116,
+    "z": 2,
+    "tabOrder": 2
   },
   "visual": {
     "visualType": "cardVisual",
@@ -20,15 +20,15 @@
                 "Measure": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "silver fact_gl"
+                      "Entity": "P&L Lines"
                     }
                   },
-                  "Property": "Bridge Context"
+                  "Property": "P&L Line Tooltip"
                 }
               },
-              "queryRef": "silver fact_gl.Bridge Context",
-              "nativeQueryRef": "Bridge Context",
-              "displayName": "Comparison context"
+              "queryRef": "P&L Lines.P&L Line Tooltip",
+              "nativeQueryRef": "P&L Line Tooltip",
+              "displayName": "Definition"
             }
           ]
         }
@@ -229,7 +229,7 @@
             "show": {
               "expr": {
                 "Literal": {
-                  "Value": "false"
+                  "Value": "true"
                 }
               }
             },
@@ -340,7 +340,7 @@
             "altText": {
               "expr": {
                 "Literal": {
-                  "Value": "'Comparison context and warning when the selected forecast month contains actualized values'"
+                  "Value": "'Definition and formula for the selected P&L line'"
                 }
               }
             }

@@ -192,11 +192,6 @@ table 'silver fact_gl'
 		displayFolder: Variance Bridge
 		lineageTag: c36441de-342b-423c-9fb6-c0c2979013a2
 
-	/// Flags months where the selected forecast series contains actualized history rather than forecast values.
-	measure 'Bridge Forecast Is Actualized' = VAR _month = SELECTEDVALUE('Reporting Month'[Month Start]) VAR _latestForecast = CALCULATE(MAX('gold fpa_version'[forecast_as_of]), REMOVEFILTERS('gold fpa_version'), 'gold fpa_version'[scenario] = "Forecast") VAR _basis = CALCULATE(SELECTEDVALUE('gold fpa_monthly'[basis]), 'gold fpa_monthly'[scenario] = "Forecast", 'gold fpa_monthly'[forecast_as_of] = _latestForecast, 'gold fpa_monthly'[month_start] = _month) RETURN IF(SELECTEDVALUE('Bridge Comparison'[Comparison], "YoY") = "vs Forecast" && _basis = "Actualized", 1, 0)
-		isHidden
-		displayFolder: Variance Bridge
-
 	measure 'Bridge Actual Label' = VAR _month = SELECTEDVALUE('Reporting Month'[Month Start]) RETURN IF(ISBLANK(_month), "Select a month", FORMAT(_month, "MMM-yy", "en-US"))
 		formatString: @
 		displayFolder: Variance Bridge
@@ -218,6 +213,12 @@ table 'silver fact_gl'
 		isHidden
 		displayFolder: Variance Bridge
 		lineageTag: 95cdd516-6faf-4aaf-99ce-f6ad78bca959
+
+	/// Flags months where the selected forecast series contains actualized history rather than forecast values.
+	measure 'Bridge Forecast Is Actualized' = VAR _month = SELECTEDVALUE('Reporting Month'[Month Start]) VAR _latestForecast = CALCULATE(MAX('gold fpa_version'[forecast_as_of]), REMOVEFILTERS('gold fpa_version'), 'gold fpa_version'[scenario] = "Forecast") VAR _basis = CALCULATE(SELECTEDVALUE('gold fpa_monthly'[basis]), 'gold fpa_monthly'[scenario] = "Forecast", 'gold fpa_monthly'[forecast_as_of] = _latestForecast, 'gold fpa_monthly'[month_start] = _month) RETURN IF(SELECTEDVALUE('Bridge Comparison'[Comparison], "YoY") = "vs Forecast" && _basis = "Actualized", 1, 0)
+		isHidden
+		displayFolder: Variance Bridge
+		lineageTag: 216b63d4-39e3-4902-be7e-1c5f7024d48d
 
 	column journal_id
 		dataType: string

@@ -23,11 +23,11 @@
                       "Entity": "P&L Lines"
                     }
                   },
-                  "Property": "Line"
+                  "Property": "Line Label"
                 }
               },
-              "queryRef": "P&L Lines.Line",
-              "nativeQueryRef": "Line",
+              "queryRef": "P&L Lines.Line Label",
+              "nativeQueryRef": "Line Label",
               "displayName": "P&L line",
               "active": true
             }
@@ -1986,7 +1986,34 @@
             "altText": {
               "expr": {
                 "Literal": {
-                  "Value": "'Income statement from revenue through net profit for the selected filters'"
+                  "Value": "'Income statement with hover definitions and formulas for each P&L line'"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "visualTooltip": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "type": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Canvas'"
+                }
+              }
+            },
+            "section": {
+              "expr": {
+                "Literal": {
+                  "Value": "'c10df10afpa0000000002'"
                 }
               }
             }

@@ -58,11 +58,11 @@
                       "Entity": "silver fact_gl"
                     }
                   },
-                  "Property": "P&L Actual"
+                  "Property": "P&L Actual Display"
                 }
               },
-              "queryRef": "silver fact_gl.P&L Actual",
-              "nativeQueryRef": "P&L Actual",
+              "queryRef": "silver fact_gl.P&L Actual Display",
+              "nativeQueryRef": "P&L Actual Display",
               "displayName": "Actual"
             },
             {
@@ -73,11 +73,11 @@
                       "Entity": "silver fact_gl"
                     }
                   },
-                  "Property": "P&L Comparison Value"
+                  "Property": "P&L Comparison Display"
                 }
               },
-              "queryRef": "silver fact_gl.P&L Comparison Value",
-              "nativeQueryRef": "P&L Comparison Value",
+              "queryRef": "silver fact_gl.P&L Comparison Display",
+              "nativeQueryRef": "P&L Comparison Display",
               "displayName": "Comparison"
             },
             {
@@ -88,11 +88,11 @@
                       "Entity": "silver fact_gl"
                     }
                   },
-                  "Property": "P&L Comparison Change"
+                  "Property": "P&L Comparison Change Display"
                 }
               },
-              "queryRef": "silver fact_gl.P&L Comparison Change",
-              "nativeQueryRef": "P&L Comparison Change",
+              "queryRef": "silver fact_gl.P&L Comparison Change Display",
+              "nativeQueryRef": "P&L Comparison Change Display",
               "displayName": "Variance"
             },
             {
@@ -560,7 +560,7 @@
                 }
               }
             ],
-            "metadata": "silver fact_gl.P&L Comparison Change"
+            "metadata": "silver fact_gl.P&L Comparison Change Display"
           }
         },
         {
@@ -932,7 +932,7 @@
             }
           },
           "selector": {
-            "metadata": "silver fact_gl.P&L Actual"
+            "metadata": "silver fact_gl.P&L Actual Display"
           }
         },
         {
@@ -989,7 +989,7 @@
             }
           },
           "selector": {
-            "metadata": "silver fact_gl.P&L Comparison Value"
+            "metadata": "silver fact_gl.P&L Comparison Display"
           }
         },
         {
@@ -1046,7 +1046,7 @@
             }
           },
           "selector": {
-            "metadata": "silver fact_gl.P&L Comparison Change"
+            "metadata": "silver fact_gl.P&L Comparison Change Display"
           }
         },
         {
